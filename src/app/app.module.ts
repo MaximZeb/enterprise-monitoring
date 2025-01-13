@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
