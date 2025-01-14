@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,30 +7,31 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./form-create-account.component.scss']
 })
 export class FormCreateAccountComponent implements OnInit {
+  @Output() public isSingUp = new EventEmitter<boolean>(); 
+  public hide: boolean = true;
+  
   public registrationForm: FormGroup = new FormGroup({
     login: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
-    dateOfBirth: new FormControl('', Validators.required),
-    aboutMe: new FormControl(),
-    gender: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    middleName: new FormControl('', Validators.required),
+    position: new FormControl('', Validators.required),
+    division: new FormControl('', Validators.required)
   });
   
-  public register(): void {
-    if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
-    }
-  };
-
-  public cancel(): void {
-    this.registrationForm.reset();
-  }
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  public transition(): void {
+    this.isSingUp.emit(true);
+  };
+
+  public createAccount(): void {
+    if (this.registrationForm.valid) {
+      console.log(this.registrationForm.value);
+    }
+  }
 }
