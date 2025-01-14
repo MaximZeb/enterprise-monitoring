@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 
 @Component({
   selector: 'form-sing-account',
@@ -15,7 +16,7 @@ export class FormSingAccountComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
   
-  public constructor() { }
+  public constructor(private progressSpinnerService: ProgressSpinnerService) { }
 
   public ngOnInit(): void {
   }
