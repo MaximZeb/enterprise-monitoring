@@ -1,1 +1,9 @@
-<p>auth works!</p>
+<div class="container-auth">
+    <div class="container-auth__img-container">
+        <img class="img-technik" src="../../../assets/technikMining.jpg" alt="mining">
+    </div>
+    <div class="container-auth__forms">
+        <form-create-account *ngIf="toggleForm()"></form-create-account>
+        <form-sing-account *ngIf="!toggleForm()"></form-sing-account>
+    </div>
+</div>
