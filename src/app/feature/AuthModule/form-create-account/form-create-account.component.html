@@ -1,4 +1,45 @@
 <div class="container-new-account">
-    <h1>Создать учетную запись</h1>
+    <mat-card class="register-card">
+        <h1>Создать учетную запись</h1>
+        <form class="register-form-field" [formGroup]="registrationForm" (ngSubmit)="register()">
+            <mat-card-content class="register-cardcontent">
+                <mat-form-field class="register-formfield">
+                    <mat-label class="register-formlabel">Логин</mat-label>
+                    <input matInput class="register-form-input" formControlName="login" placeholder="Введите логин">
+                    <mat-hint class="register-formhint"
+                        *ngIf="registrationForm.controls['login'].invalid && registrationForm.controls['login'].touched">Логин
+                        обязателен</mat-hint>
+                </mat-form-field>
+                <!-- <mat-form-field class="register-formfield">
+                    <mat-label class="register-formlabel">Пароль</mat-label>
+                    <input matInput class="register-forminput" formControlName="password" type="password"
+                        placeholder="Введите пароль">
+                    <mat-hint class="register-formhint"
+                        *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">Пароль
+                        обязателен</mat-hint>
+                </mat-form-field>
+                <mat-form-field class="register-formfield">
+                    <mat-label class="register-formlabel">Имя</mat-label>
+                    <input matInput class="register-forminput" formControlName="name" placeholder="Введите имя">
+                    <mat-hint class="register-formhint"
+                        *ngIf="registrationForm.controls['name'].invalid && registrationForm.controls['name'].touched">Имя
+                        обязательно</mat-hint>
+                </mat-form-field>
+                <mat-form-field class="register-formfield">
+                    <mat-label class="register-formlabel">Фамилия</mat-label>
+                    <input matInput class="register-forminput" formControlName="surname" placeholder="Введите фамилию">
+                    <mat-hint class="register-formhint"
+                        *ngIf="registrationForm.controls['surname'].invalid && registrationForm.controls['surname'].touched">Фамилия
+                        обязательна</mat-hint>
+                </mat-form-field> -->
+            </mat-card-content>
+            <div class="button-container">
+                <button mat-flat-button type="submit" class="register-form__button" [disabled]="!registrationForm.valid"
+                    color="primary">Зарегистрироваться</button>
+                <button mat-flat-button type="" class="register-form__button" (click)="cancel()"
+                    color="primary">Отмена</button>
+            </div>
+        </form>
+    </mat-card>
 </div>
 
