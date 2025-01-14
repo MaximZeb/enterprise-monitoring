@@ -1,0 +1,31 @@
+:host {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-new-account {
+    display: flex;
+    flex-direction: column;
+    width: 410px;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    width: 100%;
+}
+
+.register-form-field {
+    width: 100%;
+}
+
+.register-form-hint {
+    color: red;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}

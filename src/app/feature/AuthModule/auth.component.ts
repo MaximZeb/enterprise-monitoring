@@ -6,13 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  public isShowCreateAccount: boolean = true;
+  public constructor() { }
 
-  constructor() { }
+  public ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  public toggleForm(): boolean {
-    return true;
+  public toggleForms(isShow: boolean): void {
+    this.isShowCreateAccount = isShow;
   }
 }

@@ -20,10 +20,9 @@ export class FormCreateAccountComponent implements OnInit {
     division: new FormControl('', Validators.required)
   });
   
-  constructor() { }
+  public constructor() { }
 
-  ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
   public transition(): void {
     this.isSingUp.emit(true);

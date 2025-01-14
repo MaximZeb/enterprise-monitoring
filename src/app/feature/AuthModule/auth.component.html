@@ -3,7 +3,7 @@
         <img class="img-technik" src="../../../assets/technikMining.jpg" alt="mining">
     </div>
     <div class="container-auth__forms">
-        <form-create-account *ngIf="toggleForm()"></form-create-account>
-        <form-sing-account *ngIf="!toggleForm()"></form-sing-account>
+        <form-sing-account (isSingUp)="toggleForms($event)" *ngIf="isShowCreateAccount"></form-sing-account>
+        <form-create-account (isSingUp)="toggleForms($event)" *ngIf="!isShowCreateAccount"></form-create-account>
     </div>
 </div>
