@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProgressSpinnerService } from './progress-spiner/progress-spinner.service';
 import { BehaviorSubject } from 'rxjs';
+import { ApiService } from './feature/API/api.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,14 @@ import { BehaviorSubject } from 'rxjs';
 export class AppComponent implements OnInit {
   public isShowProgressSpiner: BehaviorSubject<boolean> = this.progressSpinnerService.isShowProgressSpiner;
 
-  public constructor(
+  public constructor (
     private router: Router,
-    private progressSpinnerService: ProgressSpinnerService
+    private progressSpinnerService: ProgressSpinnerService,
+    private apiService: ApiService
   ) {}
 
   public ngOnInit(): void {
     this.router.navigate(['/auth']);
+    this.apiService.get('http://localhost:3000/api').subscribe(v => console.log(v))
   }
 }

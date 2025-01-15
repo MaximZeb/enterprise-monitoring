@@ -18,8 +18,7 @@ export class FormSingAccountComponent implements OnInit {
   
   public constructor(private progressSpinnerService: ProgressSpinnerService) { }
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
   public transition(): void {
     this.isSingUp.emit(false);
