@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { ApiService } from '../../API/api.service';
 
 @Injectable({
@@ -11,6 +11,17 @@ export class ApiRegistryEnteryAccountService {
 
   public registryAccount(data: any): Observable<any> {
     const jsonUserInfo: string = JSON.stringify(data);
-    return this.apiService.post(`${this.rootUrl}/register`, jsonUserInfo);
+
+    return this.apiService.post(`${this.rootUrl}/register`, jsonUserInfo).pipe(
+      switchMap((value: any) => {
+        return this.apiService.get(`${this.rootUrl}/mines/${value.enterpriseId}`)
+      })
+    )
+  }
+
+  public entryAccount(data: any): Observable<any> {
+    const jsonUserInfo: string = JSON.stringify(data);
+
+    return this.apiService.post(`${this.rootUrl}/entry`, jsonUserInfo);
   }
 }
