@@ -22,6 +22,10 @@ export class ApiRegistryEnteryAccountService {
   public entryAccount(data: any): Observable<any> {
     const jsonUserInfo: string = JSON.stringify(data);
 
-    return this.apiService.post(`${this.rootUrl}/entry`, jsonUserInfo);
+    return this.apiService.post(`${this.rootUrl}/entry`, jsonUserInfo).pipe(
+      switchMap((value: any) => {
+        return this.apiService.get(`${this.rootUrl}/mines/${value.enterpriseId}`)
+      })
+    )
   }
 }
