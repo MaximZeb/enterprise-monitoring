@@ -34,8 +34,10 @@ export class FormSingAccountComponent implements OnInit {
       console.log(this.registrationForm.value);
 
       this.apiRegistryEnteryAccountService.entryAccount(this.registrationForm.value).subscribe((data: any) => {
+        const JSONMine: string = JSON.stringify(data);
+
         this.router.navigate(['/monitoring'], {
-          queryParams: { mineData: data }
+          queryParams: { mineData: JSONMine }
         })
       });
     }

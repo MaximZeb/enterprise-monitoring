@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-monitoring',
@@ -8,12 +8,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./monitoring.component.scss']
 })
 export class MonitoringComponent implements OnInit {
-
-  constructor(private activatedRoute: ActivatedRoute) { }
   public mineData!: Observable<any>;
+  public constructor(private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.mineData = this.activatedRoute.paramMap;
+  public ngOnInit(): void {
+    const str = JSON.parse(this.activatedRoute.snapshot.queryParams['mineData'])
+    this.mineData = of(str);
   }
-
 }

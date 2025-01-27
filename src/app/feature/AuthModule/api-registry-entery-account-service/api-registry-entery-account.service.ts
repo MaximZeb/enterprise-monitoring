@@ -7,7 +7,7 @@ import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner
   providedIn: 'root'
 })
 export class ApiRegistryEnteryAccountService {
-  private readonly rootUrl: string = "http://localhost:3000";
+  public readonly rootUrl: string = "http://localhost:3000";
   constructor(private apiService: ApiService, private progressSpinnerService: ProgressSpinnerService) { }
 
   public registryAccount(data: any): Observable<any> {

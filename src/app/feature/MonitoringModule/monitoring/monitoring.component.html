@@ -1,1 +1,6 @@
-<p *ngIf="mineData | async as mine">monitoring works!</p>
+<ng-container *ngIf="mineData | async as mine">
+    <p>monitoring works!</p>
+    <div>
+        {{mine.name}}
+    </div>
+</ng-container>
