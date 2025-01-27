@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'form-sing-account',
@@ -18,8 +19,8 @@ export class FormSingAccountComponent implements OnInit {
   });
   
   public constructor(
-    private progressSpinnerService: ProgressSpinnerService,
-    private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService
+    private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService,
+    private router: Router
   ) { }
 
   public ngOnInit(): void {}
@@ -32,7 +33,11 @@ export class FormSingAccountComponent implements OnInit {
     if (this.registrationForm.valid) {
       console.log(this.registrationForm.value);
 
-      this.apiRegistryEnteryAccountService.entryAccount(this.registrationForm.value).subscribe(v => console.log(v));
+      this.apiRegistryEnteryAccountService.entryAccount(this.registrationForm.value).subscribe((data: any) => {
+        this.router.navigate(['/monitoring'], {
+          queryParams: { mineData: data }
+        })
+      });
     }
   }
 }
