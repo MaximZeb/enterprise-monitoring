@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,9 @@ export class ApiService {
     return this.http.get(url, {
       headers: headers,
       withCredentials: true
-    });
+    }).pipe(
+      map((answer: any) => {
+        return answer.data
+    }));
   }
 }
