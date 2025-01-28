@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
 import { Router } from '@angular/router';
 
@@ -9,8 +8,8 @@ import { Router } from '@angular/router';
   templateUrl: './form-sing-account.component.html',
   styleUrls: ['./form-sing-account.component.scss']
 })
-export class FormSingAccountComponent implements OnInit {
-  @Output() public isSingUp = new EventEmitter<boolean>(); 
+export class FormSingAccountComponent {
+  @Output() public isSingUp: EventEmitter<boolean> = new EventEmitter<boolean>(); 
   public hide: boolean = true;
   
   public registrationForm: FormGroup = new FormGroup({
@@ -18,12 +17,10 @@ export class FormSingAccountComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
   
-  public constructor(
+  public constructor (
     private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService,
     private router: Router
   ) { }
-
-  public ngOnInit(): void {}
 
   public transition(): void {
     this.isSingUp.emit(false);
@@ -31,7 +28,6 @@ export class FormSingAccountComponent implements OnInit {
 
   public singUpAccount(): void {
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
 
       this.apiRegistryEnteryAccountService.entryAccount(this.registrationForm.value).subscribe((data: any) => {
         const JSONMine: string = JSON.stringify(data);

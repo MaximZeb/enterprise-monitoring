@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./monitoring.component.scss']
 })
 export class MonitoringComponent implements OnInit {
-  public mineData!: Observable<any>;
+  public mineData: Observable<any> = of(null);
   public constructor(private activatedRoute: ActivatedRoute) { }
 
   public ngOnInit(): void {

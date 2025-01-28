@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
 
@@ -7,8 +7,8 @@ import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-
   templateUrl: './form-create-account.component.html',
   styleUrls: ['./form-create-account.component.scss']
 })
-export class FormCreateAccountComponent implements OnInit {
-  @Output() public isSingUp = new EventEmitter<boolean>();
+export class FormCreateAccountComponent {
+  @Output() public isSingUp: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public hide: boolean = true;
 
@@ -24,8 +24,6 @@ export class FormCreateAccountComponent implements OnInit {
   
   public constructor(private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService) { }
 
-  public ngOnInit(): void {}
-
   public transition(): void {
     this.isSingUp.emit(true);
   };
@@ -33,7 +31,6 @@ export class FormCreateAccountComponent implements OnInit {
   public createAccount(): void {
     if (this.registrationForm.valid) {
       this.apiRegistryEnteryAccountService.registryAccount(this.registrationForm.value).subscribe()
-      console.log(this.registrationForm.value);
     }
   }
 }

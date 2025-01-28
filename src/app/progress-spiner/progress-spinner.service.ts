@@ -7,8 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 export class ProgressSpinnerService {
   public isShowProgressSpiner: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  public constructor() { }
-
   public onProgressSpiner(): void {
     this.isShowProgressSpiner.next(true);
   }

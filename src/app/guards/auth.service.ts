@@ -1,24 +1,28 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiRegistryEnteryAccountService } from '../feature/AuthModule/api-registry-entery-account-service/api-registry-entery-account.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { ApiService } from '../feature/API/api.service';
+import { ProgressSpinnerService } from '../progress-spiner/progress-spinner.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = this.apiRegistryEnteryAccountService.rootUrl; // Адрес проверки токена
+  private apiUrlRoot: string = this.apiRegistryEnteryAccountService.rootUrl; // Адрес проверки токена
 
   public constructor(
     private apiService: ApiService,
-    private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService
+    private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService,
+    private progressSpinnerService: ProgressSpinnerService
   ) {}
 
   public validateToken(): Observable<boolean> {
-    return this.apiService.get(`${this.apiUrl}/validate`).pipe(
+    this.progressSpinnerService.onProgressSpiner();
+
+    return this.apiService.get(`${this.apiUrlRoot}/validate`).pipe(
       map((response) => {
         return response.status === 200; // Если токен валиден, сервер вернет 200
-      })
+      }),
+      tap(() => this.progressSpinnerService.offProgressSpiner())
     );
   }}

@@ -1,2 +1,4 @@
-<app-progress-spiner *ngIf="isShowProgressSpiner | async"></app-progress-spiner>
+<ng-container *ngIf="isShowProgressSpiner | async">
+    <app-progress-spiner></app-progress-spiner>
+</ng-container>
 <router-outlet></router-outlet>
