@@ -1,7 +1,24 @@
-<ng-container *ngIf="mineData | async as mine">
-    <p>monitoring works!</p>
-    <div>
-        {{mine.mine.name}}
-        {{mine.user.name}}
+<div class="layout">
+    <div class="head-container">
+        <div class="container-account">
+            <div class="icon">1</div>
+            <div class="user-container">
+                <div class="fio">asda asd asd</div>
+                <div class="division">aaaaaaaaaaaaaaa</div>
+            </div>
+            <div class="logout">2</div>
+        </div>
     </div>
-</ng-container>
+  
+    <div class="content">
+      <router-outlet></router-outlet>
+      <ng-container *ngIf="mineData | async as mine">
+        <div>
+          {{mine.mine.name}}
+          {{mine.user.name}}
+        </div>
+      </ng-container>
+    </div>
+  
+    <footer class="footer-container">Footer</footer>
+  </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { IResourceData } from '../../API/api.interface';
+import { MonitoringService } from './monitoring.service';
 
 @Component({
   selector: 'app-monitoring',
@@ -9,11 +10,14 @@ import { IResourceData } from '../../API/api.interface';
   styleUrls: ['./monitoring.component.scss']
 })
 export class MonitoringComponent implements OnInit {
-  public mineData: Observable<IResourceData | null> = of(null);
-  public constructor(private activatedRoute: ActivatedRoute) { }
+  public mineData: Observable<IResourceData | null> = this.monitoringService.getUserData();
+
+  public constructor(private activatedRoute: ActivatedRoute, private monitoringService: MonitoringService) { }
 
   public ngOnInit(): void {
-    const mine: IResourceData = JSON.parse(this.activatedRoute.snapshot.queryParams['mineData'])
-    this.mineData = of(mine);
+    const mine: IResourceData = JSON.parse(this.activatedRoute.snapshot.queryParams['mineData']);
+    this.monitoringService.setUserData(mine);
+
+    console.log(mine);
   }
 }
