@@ -41,6 +41,8 @@
         "@typescript-eslint/explicit-member-accessibility": [
           "error"
         ],
+        "@typescript-eslint/explicit-member-types": "error",
+        "@angular-eslint/template/no-negated-async": "error",
         "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/method-signature-style": "error",
         "no-array-constructor": "off",
