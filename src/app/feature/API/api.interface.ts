@@ -35,3 +35,15 @@ export interface ICombineComplexs {
     bunkerId: string;
     samohodniVagonId: string;
 }
+
+export interface IUser {
+    message: string;
+    name: string;
+    surname: string;
+    middleName: string;
+    position: string;
+    division: string;
+    enterpriseId: string;
+}
+
+export type IResourceData = {user: IUser, mine: IMine};

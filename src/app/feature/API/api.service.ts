@@ -9,12 +9,12 @@ import { IResponse } from './api.interface';
 export class ApiService {
   constructor(private http: HttpClient) { }
 
-  public post(url: string, date: string): Observable<any> {
+  public post<T>(url: string, date: string): Observable<IResponse<T>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(url, date, {
+    return this.http.post<IResponse<T>>(url, date, {
       headers: headers,
       withCredentials: true
     });

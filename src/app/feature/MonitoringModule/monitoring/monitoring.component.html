@@ -1,6 +1,7 @@
 <ng-container *ngIf="mineData | async as mine">
     <p>monitoring works!</p>
     <div>
-        {{mine.name}}
+        {{mine.mine.name}}
+        {{mine.user.name}}
     </div>
 </ng-container>

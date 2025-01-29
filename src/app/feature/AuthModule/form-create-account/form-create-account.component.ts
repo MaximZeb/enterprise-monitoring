@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
 import { Router } from '@angular/router';
-import { IMine } from '../../API/api.interface';
+import { IMine, IResourceData } from '../../API/api.interface';
 
 @Component({
   selector: 'form-create-account',
@@ -32,7 +32,7 @@ export class FormCreateAccountComponent {
 
   public createAccount(): void {
     if (this.registrationForm.valid) {
-      this.apiRegistryEnteryAccountService.registryAccount(this.registrationForm.value).subscribe((data: IMine) => {
+      this.apiRegistryEnteryAccountService.registryAccount(this.registrationForm.value).subscribe((data: IResourceData) => {
               const JSONMine: string = JSON.stringify(data);
       
               this.router.navigate(['/monitoring'], {
