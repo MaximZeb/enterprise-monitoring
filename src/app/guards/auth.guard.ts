@@ -11,8 +11,8 @@ export class AuthGuard implements CanActivate {
   
   public canActivate(): Observable<boolean> {
     return this.authService.validateToken().pipe(
-      map((isValid) => {
-        if (!isValid) {
+      map((isValid: boolean) => {
+        if (isValid) {
           return true; // Если токен валиден, разрешаем доступ
         } else {
           this.router.navigate(['/auth']); // Если токен не валиден, перенаправляем

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
+import { Router } from '@angular/router';
+import { IMine } from '../../API/api.interface';
 
 @Component({
   selector: 'form-create-account',
@@ -22,7 +24,7 @@ export class FormCreateAccountComponent {
     division: new FormControl('', Validators.required)
   });
   
-  public constructor(private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService) { }
+  public constructor(private apiRegistryEnteryAccountService: ApiRegistryEnteryAccountService, private router: Router) { }
 
   public transition(): void {
     this.isSingUp.emit(true);
@@ -30,7 +32,13 @@ export class FormCreateAccountComponent {
 
   public createAccount(): void {
     if (this.registrationForm.valid) {
-      this.apiRegistryEnteryAccountService.registryAccount(this.registrationForm.value).subscribe()
+      this.apiRegistryEnteryAccountService.registryAccount(this.registrationForm.value).subscribe((data: IMine) => {
+              const JSONMine: string = JSON.stringify(data);
+      
+              this.router.navigate(['/monitoring'], {
+                queryParams: { mineData: JSONMine }
+              })
+      });
     }
   }
 }

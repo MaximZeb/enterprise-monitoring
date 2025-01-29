@@ -7,11 +7,6 @@ export interface ILoginEntery {
     password: string;
 } 
 
-export interface ILoginEntery {
-    login: string;
-    password: string;
-} 
-
 export interface ILoginCreate {
     login: string;
     password: string;
@@ -23,6 +18,7 @@ export interface ILoginCreate {
 }
 
 export interface IMine {
+    message?: string;
     _id: string;
     name: string;
     sections: ISection[];

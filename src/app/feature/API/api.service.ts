@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { IResponse } from './api.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +20,14 @@ export class ApiService {
     });
   }
 
-  public get(url: string): Observable<any> {
+  public get<T>(url: string): Observable<IResponse<T>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.get(url, {
+    return this.http.get<IResponse<T>>(url, {
       headers: headers,
       withCredentials: true
-    }).pipe(
-      map((answer: any) => {
-        return answer.data
-    }));
+    });
   }
 }
