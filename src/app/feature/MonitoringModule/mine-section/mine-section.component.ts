@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IResourceData } from '../../API/api.interface';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MonitoringService } from '../monitoring/monitoring.service';
 
 @Component({
@@ -12,11 +12,20 @@ import { MonitoringService } from '../monitoring/monitoring.service';
 export class MineSectionComponent implements OnInit {
   public mineData: Observable<IResourceData | null> = this.monitoringService.getUserData();
 
-  public constructor(private router: Router, private activatedRoute: ActivatedRoute, private monitoringService: MonitoringService) { }
+  public constructor(private activatedRoute: ActivatedRoute, private monitoringService: MonitoringService) { }
 
   public ngOnInit(): void {
-    const mine: IResourceData = JSON.parse(this.activatedRoute.snapshot.queryParams['mineData']);
-    this.monitoringService.setUserData(mine);
-    
+    const mineData = this.activatedRoute.snapshot.queryParams['mineData'];
+
+    if (mineData) {
+      try {
+        const mine: IResourceData = JSON.parse(mineData);
+        this.monitoringService.setUserData(mine);
+      } catch (error) {
+        console.error('Ошибка парсинга mineData:', error);
+      }
+    } else {
+      console.warn('mineData отсутствует в queryParams');
+    }
   }
 }

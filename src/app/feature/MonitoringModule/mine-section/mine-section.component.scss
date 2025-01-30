@@ -1,4 +1,10 @@
 .card {
-    width: 380px;
-    height: 167px;
+    width: 280px;
+    height: 105px;
 }
+
+.disabled-card {
+    pointer-events: none; 
+    opacity: 0.5;
+    filter: grayscale(70%);
+  }

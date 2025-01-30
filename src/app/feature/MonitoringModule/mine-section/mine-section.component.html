@@ -1,10 +1,10 @@
 <ng-container *ngIf="mineData | async as mine">
     <ng-container *ngFor="let section of mine.mine.sections">
-        <mat-card class="card">
+        <mat-card class="card" [ngClass]="{ 'disabled-card': !section.combine_complexs.length}">
           <mat-card-title>{{ section.name }}</mat-card-title>
           <mat-card-subtitle>Начальник: {{ section.boss }}</mat-card-subtitle>
           <mat-card-actions>
-            <button mat-button [routerLink]="'monitoring/sections/combine'">Перейти</button>
+            <button mat-button [routerLink]="'combine'" [state]="{ replaceUrl: true }">Перейти</button>
           </mat-card-actions>
         </mat-card>
       </ng-container>

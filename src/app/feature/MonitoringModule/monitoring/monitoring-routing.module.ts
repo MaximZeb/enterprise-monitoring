@@ -7,7 +7,7 @@ import { MineCombineComplexsComponent } from '../mine-combine-complexs/mine-comb
 const routes: Routes = [
   { path: '', component: MonitoringComponent, children: [
     { path: 'sections', component: MineSectionComponent },
-    { path: 'combine', component: MineCombineComplexsComponent }
+    { path: 'sections/combine', component: MineCombineComplexsComponent }
   ]},
 ];
 

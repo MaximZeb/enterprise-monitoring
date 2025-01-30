@@ -36,7 +36,8 @@ export class FormCreateAccountComponent {
               const JSONMine: string = JSON.stringify(data);
       
               this.router.navigate(['/monitoring'], {
-                queryParams: { mineData: JSONMine }
+                queryParams: { mineData: JSONMine },
+                replaceUrl: true
               })
       });
     }

@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/auth'], {
+      replaceUrl: true
+    });
   }
 }

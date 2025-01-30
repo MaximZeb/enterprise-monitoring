@@ -15,12 +15,12 @@ export class AuthGuard implements CanActivate {
         if (isValid) {
           return true; // Если токен валиден, разрешаем доступ
         } else {
-          this.router.navigate(['/auth']); // Если токен не валиден, перенаправляем
+          this.router.navigate(['/auth'], { replaceUrl: true }); // Если токен не валиден, перенаправляем
           return false;
         }
       }),
       catchError(() => {
-        this.router.navigate(['/auth']); // В случае ошибки тоже перенаправляем
+        this.router.navigate(['/auth'], { replaceUrl: true }); // В случае ошибки тоже перенаправляем
         return [false];
       })
     );

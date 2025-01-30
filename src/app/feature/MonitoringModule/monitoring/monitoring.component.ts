@@ -17,6 +17,6 @@ export class MonitoringComponent implements OnInit {
   public ngOnInit(): void {
     const mine: IResourceData = JSON.parse(this.activatedRoute.snapshot.queryParams['mineData']);
     this.monitoringService.setUserData(mine);
-    this.router.navigate(['sections'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['sections'], { relativeTo: this.activatedRoute, replaceUrl: true });
   }
 }
