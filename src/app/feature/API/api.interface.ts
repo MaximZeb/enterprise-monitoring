@@ -26,6 +26,7 @@ export interface IMine {
 
 export interface ISection {
     name: string;
+    boss: string;
     combine_complexs: ICombineComplexs[];
 }
 

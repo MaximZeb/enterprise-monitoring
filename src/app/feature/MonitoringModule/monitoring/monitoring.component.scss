@@ -29,13 +29,35 @@ $color: #AAAAAA;
 }
 
 .container-account {
+    width: 300px;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-}
+    gap: 17px;
+    padding: 10px;
+  }
+  
+  .icon,
+  .logout {
+    width: 40px;
+  }
 
-.user-container {
+  .logout {
+    color: #EA3323;
+    cursor: pointer;
+  }
+  
+  .user-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-}
+    overflow: hidden;
+  }
+  
+  .fio,
+  .division {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-size: 16px;
+  }
