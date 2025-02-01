@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ISection } from '../../API/api.interface';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { MonitoringService } from '../monitoring/monitoring.service';
 
 @Component({
   selector: 'app-mine-combine-complexs',
@@ -6,10 +10,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mine-combine-complexs.component.scss']
 })
 export class MineCombineComplexsComponent implements OnInit {
+  public sectionData: Observable<ISection | null> = this.monitoringService.getSectionData();
 
-  constructor() { }
+  public constructor(private activatedRoute: ActivatedRoute, private monitoringService: MonitoringService) { }
 
-  ngOnInit(): void {
-  }
-
+  public ngOnInit(): void { }
 }

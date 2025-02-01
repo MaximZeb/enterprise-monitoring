@@ -32,6 +32,7 @@ export interface ISection {
 
 export interface ICombineComplexs {
     name: string;
+    brigadir: string;
     combineId: string;
     bunkerId: string;
     samohodniVagonId: string;

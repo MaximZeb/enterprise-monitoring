@@ -1,1 +1,13 @@
-<p>mine-combine-complexs works!</p>
+<ng-container *ngIf="sectionData | async as section">
+    <div class="card-contariner">
+      <ng-container *ngFor="let combine of section.combine_complexs">
+        <mat-card class="card" [ngClass]="{ 'disabled-card': !combine.bunkerId}">
+          <mat-card-title>{{ combine.name }}</mat-card-title>
+          <mat-card-subtitle>Бригадир: {{ combine.brigadir }}</mat-card-subtitle>
+          <mat-card-actions>
+            <button mat-button>Перейти</button>
+          </mat-card-actions>
+        </mat-card>
+      </ng-container>
+    </div>
+  </ng-container>  
