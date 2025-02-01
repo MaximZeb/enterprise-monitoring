@@ -26,11 +26,13 @@ export interface IMine {
 
 export interface ISection {
     name: string;
+    boss: string;
     combine_complexs: ICombineComplexs[];
 }
 
 export interface ICombineComplexs {
     name: string;
+    brigadir: string;
     combineId: string;
     bunkerId: string;
     samohodniVagonId: string;

@@ -1,7 +1,24 @@
 <ng-container *ngIf="mineData | async as mine">
-    <p>monitoring works!</p>
-    <div>
-        {{mine.mine.name}}
-        {{mine.user.name}}
+  <div class="layout">
+      <div class="head-container">
+          <div class="container-account">
+              <div class="user">
+                <mat-icon aria-hidden="false" fontIcon="account_circle"></mat-icon>
+              </div>
+              <div class="user-container">
+                  <div class="fio">{{ mine.user.middleName }} {{ mine.user.name }} {{ mine.user.surname }}</div>
+                  <div class="division">{{ mine.user.position }}</div>
+              </div>
+              <div class="logout">
+                <mat-icon aria-hidden="false" [routerLink]="'/auth'" [state]="{ replaceUrl: true }"  fontIcon="logout"></mat-icon>
+              </div>
+          </div>
+      </div>
+    
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    
+      <footer class="footer-container"></footer>
     </div>
 </ng-container>

@@ -7,10 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ProgressSpinerComponent } from './progress-spiner/progress-spiner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ProgressSpinerComponent
+    ProgressSpinerComponent,
   ],
   imports: [
     BrowserModule,
