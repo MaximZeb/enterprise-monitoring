@@ -1,0 +1,12 @@
+.container-technics {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-technics__current-techinc {
+    display: flex;
+    flex-direction: row;
+    background-color: #E1E1E1;
+    width: 355px;
+    height: 100vh;
+}
