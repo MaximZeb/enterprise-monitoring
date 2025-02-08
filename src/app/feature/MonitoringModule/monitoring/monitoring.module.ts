@@ -13,7 +13,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core'; // ✅ Добавляем этот модуль!
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select'; // Import MatSelectModule
 
 // Настройка формата даты
 export const MY_DATE_FORMATS = {
@@ -37,6 +39,8 @@ export const MY_DATE_FORMATS = {
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     MonitoringRoutingModule,
     MatIconModule,
     MatCardModule,
@@ -44,7 +48,8 @@ export const MY_DATE_FORMATS = {
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },

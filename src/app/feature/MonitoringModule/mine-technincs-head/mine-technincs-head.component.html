@@ -4,13 +4,33 @@
     </div>
     <div class="container-technics__current-techinc">
         <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
-                <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+            <form class="technics-form" [formGroup]="technicsForm" (ngSubmit)="findTechincs()">
+                <mat-form-field appearance="fill">
+                    <mat-label>День месяца</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date">
+                    <mat-hint *ngIf="technicsForm.controls['date'].invalid && technicsForm.controls['date'].touched">Поле обязательно</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Рабочая смена</mat-label>
+                    <mat-select formControlName="workingShift">
+                      <mat-option value="one">1 Смена</mat-option>
+                      <mat-option value="two">2 Смена</mat-option>
+                      <mat-option value="trhee">3 Смена</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
+                  </mat-form-field>
+                <button 
+                    mat-flat-button 
+                    type="submit"
+                    [disabled]="!technicsForm.valid" 
+                    class="register-form__button" 
+                    color="primary"
+                    >
+                Построить
+            </button>
+            </form>
         </div>
     </div>
 </div>

@@ -14,7 +14,7 @@ export class FormCreateAccountComponent {
 
   public hide: boolean = true;
 
-  public registrationForm: FormGroup = new FormGroup({
+  public createForm: FormGroup = new FormGroup({
     login: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
@@ -31,8 +31,8 @@ export class FormCreateAccountComponent {
   };
 
   public createAccount(): void {
-    if (this.registrationForm.valid) {
-      this.apiRegistryEnteryAccountService.registryAccount(this.registrationForm.value).subscribe((data: IResourceData) => {
+    if (this.createForm.valid) {
+      this.apiRegistryEnteryAccountService.registryAccount(this.createForm.value).subscribe((data: IResourceData) => {
               const JSONMine: string = JSON.stringify(data);
       
               this.router.navigate(['/monitoring'], {

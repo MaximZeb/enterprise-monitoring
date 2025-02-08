@@ -1,13 +1,13 @@
 <div class="container-new-account">
     <mat-card class="register-card">
         <h1>Создать учетную запись</h1>
-        <form class="register-form-field" [formGroup]="registrationForm" (ngSubmit)="createAccount()">
+        <form class="register-form-field" [formGroup]="createForm" (ngSubmit)="createAccount()">
             <mat-card-content class="register-cardcontent">
                 <mat-form-field class="register-form-field">
                     <mat-label class="register-formlabel">Логин</mat-label>
                     <input matInput class="register-form-input" formControlName="login" placeholder="Введите логин">
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['login'].invalid && registrationForm.controls['login'].touched">Логин
+                        *ngIf="createForm.controls['login'].invalid && createForm.controls['login'].touched">Логин
                         обязателено</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="register-form-field">
@@ -18,42 +18,42 @@
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">Пароль
+                        *ngIf="createForm.controls['password'].invalid && createForm.controls['password'].touched">Пароль
                         обязателено</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="register-form-field">
                     <mat-label class="register-formlabel">Имя</mat-label>
                     <input matInput class="register-forminput" formControlName="name" placeholder="Введите имя">
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['name'].invalid && registrationForm.controls['name'].touched">Имя
+                        *ngIf="createForm.controls['name'].invalid && createForm.controls['name'].touched">Имя
                         обязательно</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="register-form-field">
                     <mat-label class="register-formlabel">Фамилия</mat-label>
                     <input matInput class="register-forminput" formControlName="surname" placeholder="Введите фамилию">
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['surname'].invalid && registrationForm.controls['surname'].touched">Фамилия
+                        *ngIf="createForm.controls['surname'].invalid && createForm.controls['surname'].touched">Фамилия
                         обязательно</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="register-form-field">
                     <mat-label class="register-formlabel">Отчество</mat-label>
                     <input matInput class="register-forminput" formControlName="middleName" placeholder="Введите отчество">
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['middleName'].invalid && registrationForm.controls['middleName'].touched">Отчество
+                        *ngIf="createForm.controls['middleName'].invalid && createForm.controls['middleName'].touched">Отчество
                         обязательно</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="register-form-field">
                     <mat-label class="register-formlabel">Должность</mat-label>
                     <input matInput class="register-forminput" formControlName="position" placeholder="Введите должность">
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['position'].invalid && registrationForm.controls['position'].touched">Должность
+                        *ngIf="createForm.controls['position'].invalid && createForm.controls['position'].touched">Должность
                         обязательно</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="register-form-field">
                     <mat-label class="register-formlabel">Подразделение</mat-label>
                     <input matInput class="register-forminput" formControlName="division" placeholder="Введите подразделение">
                     <mat-hint class="register-form-hint"
-                        *ngIf="registrationForm.controls['division'].invalid && registrationForm.controls['division'].touched">Подразделение
+                        *ngIf="createForm.controls['division'].invalid && createForm.controls['division'].touched">Подразделение
                         обязательно</mat-hint>
                 </mat-form-field>
             </mat-card-content>
@@ -62,7 +62,7 @@
                 <button 
                     mat-flat-button 
                     type="submit"
-                    [disabled]="!registrationForm.valid" 
+                    [disabled]="!createForm.valid" 
                     class="register-form__button" 
                     color="primary"
                     >
