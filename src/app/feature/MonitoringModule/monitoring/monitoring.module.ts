@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select'; // Import MatSelectModule
+import { ChartComponent } from '../chart/chart.component';
 
 // Настройка формата даты
 export const MY_DATE_FORMATS = {
@@ -35,7 +36,8 @@ export const MY_DATE_FORMATS = {
     MonitoringComponent,
     MineSectionComponent,
     MineCombineComplexsComponent,
-    MineTechnincsHeadComponent
+    MineTechnincsHeadComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,

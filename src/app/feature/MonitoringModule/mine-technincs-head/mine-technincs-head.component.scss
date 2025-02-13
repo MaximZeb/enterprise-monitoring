@@ -41,3 +41,9 @@
 .dashodoard-work-shit {
     width: calc(50vw - 20px);
 }
+
+.resized-image {
+    width: 250px;
+    height: 180px;
+    object-fit: cover; /* или contain, fill, scale-down, none */
+  }
