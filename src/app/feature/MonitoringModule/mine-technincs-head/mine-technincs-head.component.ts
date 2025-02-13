@@ -18,6 +18,8 @@ export class MineTechnincsHeadComponent implements OnInit {
   }
 
   public findTechincs(): void {
-    
+    if (this.technicsForm.valid) {
+      console.log(this.technicsForm.value)
+    }
   }
 }

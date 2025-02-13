@@ -1,12 +1,43 @@
 .container-technics {
     display: flex;
+    flex-direction: row;
+}
+
+.container__technics-form {
+    display: flex;
+    justify-content: center;
+    width: 450px;
+    margin-top: 30px;
+}
+
+.container-technics__date-time {
+    display: flex;
+    flex-direction: row;
+    background-color: #E1E1E1;
+    width: 15vw;
+    height: 100%;
+}
+
+.technics-form {
+    display: flex;
     flex-direction: column;
+    height: calc(100vh - 175px);
+    row-gap: 15px;
 }
 
 .container-technics__current-techinc {
     display: flex;
     flex-direction: row;
-    background-color: #E1E1E1;
-    width: 355px;
-    height: 100vh;
+    width: 83vw;
+    justify-content: space-between;
+    column-gap: 20px;
+    padding: 10px;
+}
+
+.current-techincs {
+    width: calc(50vw - 20px);
+}
+
+.dashodoard-work-shit {
+    width: calc(50vw - 20px);
 }
