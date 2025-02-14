@@ -8,6 +8,7 @@
     justify-content: center;
     width: 450px;
     margin-top: 30px;
+    height: calc(100vh - 175px);
 }
 
 .container-technics__date-time {
@@ -21,7 +22,6 @@
 .technics-form {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 175px);
     row-gap: 15px;
 }
 
@@ -35,15 +35,52 @@
 }
 
 .current-techincs {
+    display: flex;
+    flex-direction: column;
     width: calc(50vw - 20px);
+    row-gap: 10px;
+    height: calc(100vh - 236px);
+    overflow-y: auto;
 }
 
 .dashodoard-work-shit {
     width: calc(50vw - 20px);
+    height: calc(100vh - 236px);
+}
+
+.current-techincs__card {
+    display: flex;
+    height: 250px;
+    flex-direction: column;
+    padding: 8px;
+    width: fit-content;
+}
+
+.name-work-shift {
+    margin: 10px;
+}
+
+.card-content {
+    display: flex;
+    margin: 0;
+    column-gap: 8px;
+}
+
+.card-content-img-button {
+    display: flex;
+    width: 300px;
+    margin-top: 0;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.card-content-chart {
+    height: 220px;
+    width: 460px;
 }
 
 .resized-image {
-    width: 250px;
-    height: 180px;
+    width: 300px;
+    height: 170px;
     object-fit: cover; /* или contain, fill, scale-down, none */
-  }
+}

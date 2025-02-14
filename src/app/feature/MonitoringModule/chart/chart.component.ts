@@ -21,10 +21,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
     const myChart = new Chart(ctx as CanvasRenderingContext2D, {
       type: 'bar', // тип графика
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // время
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // время
         datasets: [{
           label: 'Проходка, м', //название графика
-          data: [12, 19, 3, 5, 2, 3], // мои значения
+          data: [12, 19, 3, 5,, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3], // мои значения
           borderWidth: 1,
           backgroundColor: "#07c184" //цвет
         }]
