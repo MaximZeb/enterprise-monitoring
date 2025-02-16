@@ -49,7 +49,7 @@
                                 <button mat-raised-button>Подробнее</button>
                             </div>
                             <div class="card-content-chart">
-                                <chart></chart>
+                                <chart [typeChart]="'bar'"></chart>
                             </div>
                         </mat-card-content>
                       </mat-card>
@@ -65,7 +65,7 @@
                                 <button mat-raised-button>Подробнее</button>
                             </div>
                             <div class="card-content-chart">
-                                <chart></chart>
+                                <chart [typeChart]="'bar'"></chart>
                             </div>
                         </mat-card-content>
                       </mat-card>
@@ -81,7 +81,7 @@
                                 <button mat-raised-button>Подробнее</button>
                             </div>
                             <div class="card-content-chart">
-                                <chart></chart>
+                                <chart [typeChart]="'bar'"></chart>
                             </div>
                         </mat-card-content>
                       </mat-card>
@@ -89,7 +89,23 @@
             </div>
             <div class="dashodoard-work-shit">
                 <div>
-                    <mat-card>Dashodoard</mat-card>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Смена 1</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="dashodoard">
+                            <div class="card-content-chart">
+                                <chart
+                                    [typeChart]="'pie'"
+                                ></chart>
+                            </div>
+                            <div class="card-content-chart">
+                                <chart
+                                    [typeChart]="'pie'"
+                                ></chart>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>

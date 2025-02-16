@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Chart, ChartType, ChartTypeRegistry, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
@@ -8,6 +8,7 @@ Chart.register(...registerables);
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit, AfterViewInit {
+  @Input() public typeChart: ChartType  = 'bar';
   @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>;
 
   constructor() { }
@@ -15,11 +16,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
   }
 
+  // public get typeChart(): string {
+  //   return this.typeChart;
+  // }
+
   public ngAfterViewInit(): void {
     const ctx = this.myChart.nativeElement.getContext('2d');
 
     const myChart = new Chart(ctx as CanvasRenderingContext2D, {
-      type: 'bar', // тип графика
+      type: this.typeChart, // тип графика
       data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // время
         datasets: [{
