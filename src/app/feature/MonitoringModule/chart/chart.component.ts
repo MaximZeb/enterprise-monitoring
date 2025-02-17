@@ -9,6 +9,15 @@ Chart.register(...registerables);
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   @Input() public typeChart: ChartType  = 'bar';
+  @Input() public data: any = {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // время
+    datasets: [{
+      label: 'Проходка, м', //название графика
+      data: [12, 19, 3, 5,, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3], // мои значения
+      borderWidth: 1,
+      backgroundColor: "#07c184" //цвет
+    }]
+  };
   @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>;
 
   constructor() { }
@@ -25,15 +34,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
     const myChart = new Chart(ctx as CanvasRenderingContext2D, {
       type: this.typeChart, // тип графика
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // время
-        datasets: [{
-          label: 'Проходка, м', //название графика
-          data: [12, 19, 3, 5,, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3], // мои значения
-          borderWidth: 1,
-          backgroundColor: "#07c184" //цвет
-        }]
-      },
+      data: this.data,
       options: {
         scales: {
           y: {

@@ -33,7 +33,7 @@
     </div>
     <div class="container-monitoring">
         <mat-card class="name-work-shift">
-            1 смена
+            Дата 16.12.2024, смена 1, 08:00 - 16:00  
         </mat-card>
 
         <div class="container-technics__current-techinc">
@@ -87,22 +87,63 @@
                       </mat-card>
                 </ng-container>
             </div>
-            <div class="dashodoard-work-shit">
-                <div>
+            <div class="container-dashodoard-work-shit">
+                <div class="container-predict-dashodoard-work-shit">
                     <mat-card>
                         <mat-card-header>
-                            <mat-card-title>Смена 1</mat-card-title>
+                            <mat-card-title>Декабрь</mat-card-title>
                         </mat-card-header>
                         <mat-card-content class="dashodoard">
-                            <div class="card-content-chart">
+                            <div>
+                                <span class="text">
+                                    План:
+                                </span>
+                                <span class="plan text">
+                                    3000Т
+                                </span>
+                            </div>
+                            <div class="card-content-chart-doughnut">
                                 <chart
-                                    [typeChart]="'pie'"
+                                    [typeChart]="'doughnut'"
+                                    [data]="data"
                                 ></chart>
                             </div>
-                            <div class="card-content-chart">
+                            <div class="predict text">
+                                <span class="text">
+                                    Прогноз:
+                                </span>
+                                <span class="predict-up text">
+                                    5000Т
+                                </span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Декабрь</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="dashodoard">
+                            <div>
+                                <span class="text">
+                                    План:
+                                </span>
+                                <span class="plan text">
+                                    3000Т
+                                </span>
+                            </div>
+                            <div class="card-content-chart-doughnut">
                                 <chart
-                                    [typeChart]="'pie'"
+                                    [typeChart]="'doughnut'"
+                                    [data]="data"
                                 ></chart>
+                            </div>
+                            <div class="predict text">
+                                <span class="text">
+                                    Прогноз:
+                                </span>
+                                <span class="predict-down text">
+                                    500Т
+                                </span>
                             </div>
                         </mat-card-content>
                     </mat-card>

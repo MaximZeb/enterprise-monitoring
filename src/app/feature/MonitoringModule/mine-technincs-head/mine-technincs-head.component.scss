@@ -43,9 +43,19 @@
     overflow-y: auto;
 }
 
-.dashodoard-work-shit {
+.container-dashodoard-work-shit {
     width: calc(50vw - 20px);
     height: calc(100vh - 236px);
+    
+    .container-predict-dashodoard-work-shit {
+        display: flex;
+        column-gap: 14px;
+        height: inherit;
+
+        .card-content-chart-doughnut {
+            width: 355px;
+        }
+    }
 }
 
 .current-techincs__card {
@@ -58,6 +68,7 @@
 
 .name-work-shift {
     margin: 10px;
+    text-align: center;
 }
 
 .card-content {
@@ -83,4 +94,18 @@
     width: 300px;
     height: 170px;
     object-fit: cover; /* или contain, fill, scale-down, none */
+}
+
+.text {
+    font-family: 'Roboto';
+    font-size: 20px;
+    margin: 0 0 0 16px;
+}
+
+.predict-up {
+    background-color: #A8FBA4;
+}
+
+.predict-down {
+    background-color: #F69393;
 }
