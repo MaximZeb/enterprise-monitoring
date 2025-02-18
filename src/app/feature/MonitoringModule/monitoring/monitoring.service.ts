@@ -9,6 +9,7 @@ export class MonitoringService {
   public userData: BehaviorSubject<IResourceData | null> = new BehaviorSubject<IResourceData | null>(null);
   public sectionData: BehaviorSubject<ISection | null> = new BehaviorSubject<ISection | null>(null);
   public combineData: BehaviorSubject<ICombineComplexs | null> = new BehaviorSubject<ICombineComplexs | null>(null);
+  public dataTechnics: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
 
   public setUserData(data: IResourceData): void {
@@ -33,5 +34,13 @@ export class MonitoringService {
 
   public getCombineData(): Observable<ICombineComplexs | null> {
     return this.combineData;
+  }
+
+  public getTechnicsData(): Observable<any | null> {
+    return this.dataTechnics;
+  }
+
+  public setTechnicsData(dataTechnics: any[]): void {
+    return this.dataTechnics.next(dataTechnics);
   }
 }
