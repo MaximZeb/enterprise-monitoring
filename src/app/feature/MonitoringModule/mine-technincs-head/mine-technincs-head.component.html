@@ -1,1 +1,154 @@
-<p>mine-technincs-head works!</p>
+<div class="container-technics">
+        <div class="container-technics__date-time">
+        <div class="container__technics-form">
+            <form class="technics-form" [formGroup]="technicsForm" (ngSubmit)="findTechincs()">
+                <div>Дата</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>День месяца</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date">
+                    <mat-hint *ngIf="technicsForm.controls['date'].invalid && technicsForm.controls['date'].touched">Поле обязательно</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div>Cмена</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Рабочая смена</mat-label>
+                    <mat-select formControlName="workingShift">
+                      <mat-option value="one">1 Смена</mat-option>
+                      <mat-option value="two">2 Смена</mat-option>
+                      <mat-option value="trhee">3 Смена</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
+                </mat-form-field>
+                <button 
+                    mat-raised-button 
+                    type="submit"
+                    [disabled]="!technicsForm.valid" 
+                    class="find-work-shift" 
+                    >
+                Построить
+            </button>
+            </form>
+        </div>
+    </div>
+    <div class="container-monitoring">
+        <mat-card class="name-work-shift">
+            Дата 16.12.2024, смена 1, 08:00 - 16:00  
+        </mat-card>
+
+        <div class="container-technics__current-techinc">
+            <div class="current-techincs">
+                <ng-container>
+                    <mat-card class="current-techincs__card">
+                        <mat-card-header>
+                          <mat-card-title>Simple card</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="card-content">
+                            <div class="card-content-img-button">
+                                <img src="../../../../assets/i.webp" alt="Описание изображения" class="resized-image">
+                                <button mat-raised-button>Подробнее</button>
+                            </div>
+                            <div class="card-content-chart">
+                                <chart [typeChart]="'bar'"></chart>
+                            </div>
+                        </mat-card-content>
+                      </mat-card>
+                </ng-container>
+                <ng-container>
+                    <mat-card class="current-techincs__card">
+                        <mat-card-header>
+                          <mat-card-title>Simple card</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="card-content">
+                            <div class="card-content-img-button">
+                                <img src="../../../../assets/i.webp" alt="Описание изображения" class="resized-image">
+                                <button mat-raised-button>Подробнее</button>
+                            </div>
+                            <div class="card-content-chart">
+                                <chart [typeChart]="'bar'"></chart>
+                            </div>
+                        </mat-card-content>
+                      </mat-card>
+                </ng-container>
+                <ng-container>
+                    <mat-card class="current-techincs__card">
+                        <mat-card-header>
+                          <mat-card-title>Simple card</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="card-content">
+                            <div class="card-content-img-button">
+                                <img src="../../../../assets/i.webp" alt="Описание изображения" class="resized-image">
+                                <button mat-raised-button>Подробнее</button>
+                            </div>
+                            <div class="card-content-chart">
+                                <chart [typeChart]="'bar'"></chart>
+                            </div>
+                        </mat-card-content>
+                      </mat-card>
+                </ng-container>
+            </div>
+            <div class="container-dashodoard-work-shit">
+                <div class="container-predict-dashodoard-work-shit">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Декабрь</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="dashodoard">
+                            <div>
+                                <span class="text">
+                                    План:
+                                </span>
+                                <span class="plan text">
+                                    3000Т
+                                </span>
+                            </div>
+                            <div class="card-content-chart-doughnut">
+                                <chart
+                                    [typeChart]="'doughnut'"
+                                    [data]="data"
+                                ></chart>
+                            </div>
+                            <div class="predict text">
+                                <span class="text">
+                                    Прогноз:
+                                </span>
+                                <span class="predict-up text">
+                                    5000Т
+                                </span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Декабрь</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content class="dashodoard">
+                            <div>
+                                <span class="text">
+                                    План:
+                                </span>
+                                <span class="plan text">
+                                    3000Т
+                                </span>
+                            </div>
+                            <div class="card-content-chart-doughnut">
+                                <chart
+                                    [typeChart]="'doughnut'"
+                                    [data]="data"
+                                ></chart>
+                            </div>
+                            <div class="predict text">
+                                <span class="text">
+                                    Прогноз:
+                                </span>
+                                <span class="predict-down text">
+                                    500Т
+                                </span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
