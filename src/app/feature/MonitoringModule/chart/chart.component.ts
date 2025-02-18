@@ -8,6 +8,8 @@ Chart.register(...registerables);
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit, AfterViewInit {
+  @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>;
+
   @Input() public typeChart: ChartType  = 'bar';
   @Input() public data: any = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // время
@@ -18,16 +20,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
       backgroundColor: "#07c184" //цвет
     }]
   };
-  @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>;
 
   constructor() { }
 
-  public ngOnInit(): void {
-  }
-
-  // public get typeChart(): string {
-  //   return this.typeChart;
-  // }
+  public ngOnInit(): void {}
 
   public ngAfterViewInit(): void {
     const ctx = this.myChart.nativeElement.getContext('2d');
