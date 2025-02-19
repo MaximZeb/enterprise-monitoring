@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -29,7 +30,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
       workingShift: new FormControl('', Validators.required)
   });
 
-  constructor() { }
+  constructor(private apiDataTechnicsService: ApiDataTechnicsService) {this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c))}
 
   public ngOnInit(): void {}
 
