@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ICombineComplexs, IResourceData, ISection } from '../../API/api.interface';
+import { ICombineComplexs, IResourceData, ISection, ITechnicData } from '../../API/api.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,7 @@ export class MonitoringService {
     return this.dataTechnics;
   }
 
-  public setTechnicsData(dataTechnics: any[]): void {
+  public setTechnicsData(dataTechnics: ITechnicData[]): void {
     return this.dataTechnics.next(dataTechnics);
   }
 }

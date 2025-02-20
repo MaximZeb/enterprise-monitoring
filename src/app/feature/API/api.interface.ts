@@ -49,3 +49,20 @@ export interface IUser {
 }
 
 export type IResourceData = {user: IUser, mine: IMine};
+
+export interface ITechnicData {
+    name: string;
+    indications: IIndicationsTechnicData[];
+}
+
+export interface IIndicationsTechnicData {
+    time: string;
+    work_shift: string;
+    machine_readings: IMachineReadingsData[];
+}
+
+export interface IMachineReadingsData {
+    name_machine_readings: string;
+    readings: string;
+    times_readings: [];
+}

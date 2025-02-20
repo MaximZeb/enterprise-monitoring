@@ -3,7 +3,7 @@ import { ApiService } from '../../API/api.service';
 import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { catchError, filter, forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { ISection } from '../../API/api.interface';
+import { IResponse, ISection, ITechnicData } from '../../API/api.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,31 +20,32 @@ export class ApiDataTechnicsService {
 
     return this.monitoringService.getSectionData().pipe(
       filter((v: ISection | null) => !!v),
-      map(section => { // Добавляем map для обработки null
+      map(section => {
         if (section === null) {
-          throw new Error(`Section with id not found`); // Или верните какое-то значение по умолчанию
+          throw new Error(`Section with id not found`); 
         }
         return section;
       }),
-      switchMap((v: ISection) => {
+      switchMap((section: ISection) => {
         return forkJoin([
-          this.apiService.get<any>(`${this.apiService.rootUrl}/combine/${v.combine_complexs[0].combineId}`),
-          this.apiService.get<any>(`${this.apiService.rootUrl}/samohodniiVagon/${v.combine_complexs[0].bunkerId}`),
-          this.apiService.get<any>(`${this.apiService.rootUrl}/bunker/${v.combine_complexs[0].samohodniVagonId}`)
+          this.apiService.get<ITechnicData>(`${this.apiService.rootUrl}/combine/${section.combine_complexs[0].combineId}`).pipe(
+            map((technic: IResponse<ITechnicData>) => technic.data)),
+          this.apiService.get<ITechnicData>(`${this.apiService.rootUrl}/samohodniiVagon/${section.combine_complexs[0].samohodniVagonId}`).pipe(
+            map((technic: IResponse<ITechnicData>) => technic.data)),
+          this.apiService.get<ITechnicData>(`${this.apiService.rootUrl}/bunker/${section.combine_complexs[0].bunkerId}`).pipe(
+            map((technic: IResponse<ITechnicData>) => technic.data))
         ]);
       }),
+      switchMap((technicsData: ITechnicData[]) => {
+        this.monitoringService.setTechnicsData(technicsData)
+        return technicsData;
+      }),
+      tap(() => this.progressSpinnerService.offProgressSpiner()),
       catchError((err) => {
         this.progressSpinnerService.offProgressSpiner();
         console.error('Error during forkJoin:', err);
-        // Здесь можно вернуть Observable с дефолтными значениями, если это имеет смысл для вашей логики
-        // или пробросить ошибку дальше, чтобы обработать ее в subscribe
-        return throwError(() => err); // Пробрасываем ошибку дальше
+        return throwError(() => err);
       })
-      // .pipe(
-      //   tap((dataTechnics: any[]) => this.monitoringService.setTechnicsData(dataTechnics)),
-      //   tap(() => this.progressSpinnerService.offProgressSpiner()),
-      //   map((dataTechnics: any[]) => dataTechnics)
-      // ),
     )
   }
 }
