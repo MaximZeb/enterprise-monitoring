@@ -9,7 +9,7 @@ export class MonitoringService {
   public userData: BehaviorSubject<IResourceData | null> = new BehaviorSubject<IResourceData | null>(null);
   public sectionData: BehaviorSubject<ISection | null> = new BehaviorSubject<ISection | null>(null);
   public combineData: BehaviorSubject<ICombineComplexs | null> = new BehaviorSubject<ICombineComplexs | null>(null);
-  public dataTechnics: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+  public dataTechnics: BehaviorSubject<ITechnicData[] | null> = new BehaviorSubject<ITechnicData[] | null>(null);
 
 
   public setUserData(data: IResourceData): void {
@@ -36,7 +36,7 @@ export class MonitoringService {
     return this.combineData;
   }
 
-  public getTechnicsData(): Observable<any | null> {
+  public getTechnicsData(): Observable<ITechnicData[] | null> {
     return this.dataTechnics;
   }
 

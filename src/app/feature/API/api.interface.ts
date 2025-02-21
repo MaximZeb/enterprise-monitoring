@@ -63,6 +63,6 @@ export interface IIndicationsTechnicData {
 
 export interface IMachineReadingsData {
     name_machine_readings: string;
-    readings: string;
-    times_readings: [];
+    readings: number[];
+    times_readings: string[];
 }

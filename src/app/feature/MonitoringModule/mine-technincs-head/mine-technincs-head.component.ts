@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
+import { MonitoringService } from '../monitoring/monitoring.service';
+import { Observable } from 'rxjs';
+import { ITechnicData } from '../../API/api.interface';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -8,6 +11,8 @@ import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.s
   styleUrls: ['./mine-technincs-head.component.scss']
 })
 export class MineTechnincsHeadComponent implements OnInit  {
+  public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
+
   public data: any = {
     labels: [
       'Red',
@@ -30,7 +35,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
       workingShift: new FormControl('', Validators.required)
   });
 
-  constructor(private apiDataTechnicsService: ApiDataTechnicsService) {this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c))}
+  constructor(private apiDataTechnicsService: ApiDataTechnicsService, private monitoringService: MonitoringService) {this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c))}
 
   public ngOnInit(): void {}
 
