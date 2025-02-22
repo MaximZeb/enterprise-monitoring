@@ -1,0 +1,27 @@
+:host {
+    display: block;
+    height: inherit;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+.dialog-name {
+    text-align: center;
+}
+
+.dialog-container {
+    overflow-x: auto;
+    height: 700px;
+
+    .current-techincs__card {
+        margin: 10px;
+        height: 400px;
+        width: 700px;
+    }
+
+    .card-content {
+        height: 300px;
+        width: 700px;
+    }
+}

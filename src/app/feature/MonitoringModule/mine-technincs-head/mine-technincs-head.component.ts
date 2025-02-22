@@ -4,6 +4,8 @@ import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.s
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { Observable } from 'rxjs';
 import { ITechnicData } from '../../API/api.interface';
+import { Dialog } from '@angular/cdk/dialog';
+import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -12,30 +14,18 @@ import { ITechnicData } from '../../API/api.interface';
 })
 export class MineTechnincsHeadComponent implements OnInit  {
   public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
-
-  public data: any = {
-    labels: [
-      'Red',
-      'Blue',
-      'Yellow'
-    ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50, 100],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
-      hoverOffset: 4
-    }]
-  };
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
   });
 
-  constructor(private apiDataTechnicsService: ApiDataTechnicsService, private monitoringService: MonitoringService) {this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c))}
+  constructor(
+    private apiDataTechnicsService: ApiDataTechnicsService,
+    private monitoringService: MonitoringService,
+    private dialog: Dialog,
+  ) {
+      this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c))
+    }
 
   public ngOnInit(): void {}
 
@@ -43,6 +33,14 @@ export class MineTechnincsHeadComponent implements OnInit  {
     if (this.technicsForm.valid) {
       console.log(this.technicsForm.value)
     }
+  }
+
+  public openDialog(data: { data: ITechnicData, name: string}): void {
+    this.dialog.open(DialogChartComponent, {
+      width:  '800px',
+      height: '800px',
+      data: data,
+    });
   }
 }
 

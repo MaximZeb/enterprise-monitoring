@@ -46,8 +46,8 @@
                             </mat-card-header>
                             <mat-card-content class="card-content">
                                 <div class="card-content-img-button">
-                                    <img src="../../../../assets/ural.webp" alt="Описание изображения" class="resized-image">
-                                    <button mat-raised-button>Подробнее</button>
+                                    <img src="../../../../assets/ural-20r.png" alt="Описание изображения" class="resized-image">
+                                    <button mat-raised-button (click)="openDialog({data: combine, name: combine.name})">Подробнее</button>
                                 </div>
                                 <div class="card-content-chart">
                                     <chart 
@@ -69,6 +69,7 @@
                             <mat-card-content class="card-content">
                                 <div class="card-content-img-button">
                                     <img src="../../../../assets/bp15.jpg" alt="Описание изображения" class="resized-image">
+                                    <button mat-raised-button (click)="openDialog({data: bunker, name: bunker.name})">Подробнее</button>
                                 </div>
                                 <div class="card-content-chart">
                                 <chart 
@@ -90,7 +91,7 @@
                             <mat-card-content class="card-content">
                                 <div class="card-content-img-button">
                                     <img src="../../../../assets/samohodniVagon.webp" alt="Описание изображения" class="resized-image">
-                                    <button mat-raised-button>Подробнее</button>
+                                    <button mat-raised-button (click)="openDialog({data: samohodniVagon, name: samohodniVagon.name})">Подробнее</button>
                                 </div>
                                 <div class="card-content-chart">
                                     <chart 
@@ -122,7 +123,7 @@
                                 </div>
                                 <div class="card-content-chart-doughnut">
                                     <!-- <chart
-                                        [typeChart]="'doughnut'"
+                                        [typeChart]="'pie'"
                                         [data]="data"
                                     ></chart> -->
                                 </div>
