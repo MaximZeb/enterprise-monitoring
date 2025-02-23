@@ -67,3 +67,21 @@ export interface IMachineReadingsData {
     readings: number[];
     times_readings: string[];
 }
+
+export interface IWorkShiftMonthPlan {
+    work_shift: string;
+    time: string;
+    indications_work_shift: {
+        times_readings: string[];
+        readings: number[];
+        plan: string;
+        name_machine_readings: string;
+    },
+    indications_month: {
+        times_readings: string[];
+        readings: number[];
+        plan: string;
+        name_month: string;
+        name_machine_readings: string;
+    }
+}
