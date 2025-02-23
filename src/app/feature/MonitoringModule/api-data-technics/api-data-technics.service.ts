@@ -33,9 +33,7 @@ export class ApiDataTechnicsService {
           this.apiService.get<ITechnicData>(`${this.apiService.rootUrl}/samohodniiVagon/${section.combine_complexs[0].samohodniVagonId}`).pipe(
             map((technic: IResponse<ITechnicData>) => technic.data)),
           this.apiService.get<ITechnicData>(`${this.apiService.rootUrl}/bunker/${section.combine_complexs[0].bunkerId}`).pipe(
-            map((technic: IResponse<ITechnicData>) => technic.data)),
-          this.apiService.get<ITechnicData>(`${this.apiService.rootUrl}/work_shift/${section.combine_complexs[0].work_shift}`).pipe(
-              map((technic: IResponse<ITechnicData>) => technic.data))
+            map((technic: IResponse<ITechnicData>) => technic.data))
         ]);
       }),
       switchMap((technicsData: ITechnicData[]) => {
@@ -51,7 +49,7 @@ export class ApiDataTechnicsService {
     )
   }
 
-  public getIndectionsWork_Shift(): Observable<any> {
+  public getIndectionsWorkShift(): Observable<any> {
     this.progressSpinnerService.onProgressSpiner();
 
     return this.monitoringService.getSectionData().pipe(

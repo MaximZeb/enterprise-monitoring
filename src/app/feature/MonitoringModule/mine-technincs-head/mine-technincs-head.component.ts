@@ -26,7 +26,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private dialog: Dialog,
   ) {
       this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c));
-      this.apiDataTechnicsService.getIndectionsWork_Shift().subscribe(c => console.log(c));
+      this.apiDataTechnicsService.getIndectionsWorkShift().subscribe(c => console.log(c));
     }
 
   public ngOnInit(): void {}
