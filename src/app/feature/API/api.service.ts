@@ -7,6 +7,8 @@ import { IResponse } from './api.interface';
   providedIn: 'root'
 })
 export class ApiService {
+  public readonly rootUrl: string = 'http://localhost:3000';
+  
   constructor(private http: HttpClient) { }
 
   public post<T>(url: string, date: string): Observable<IResponse<T>> {

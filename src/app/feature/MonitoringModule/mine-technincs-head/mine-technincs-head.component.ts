@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
+import { MonitoringService } from '../monitoring/monitoring.service';
+import { Observable } from 'rxjs';
+import { ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
+import { Dialog } from '@angular/cdk/dialog';
+import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -7,29 +13,21 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./mine-technincs-head.component.scss']
 })
 export class MineTechnincsHeadComponent implements OnInit  {
-  public data: any = {
-    labels: [
-      'Red',
-      'Blue',
-      'Yellow'
-    ],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [300, 50, 100],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
-      hoverOffset: 4
-    }]
-  };
+  public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
+  public workShiftData: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getWorkShiftData();
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
   });
 
-  constructor() { }
+  constructor(
+    private apiDataTechnicsService: ApiDataTechnicsService,
+    private monitoringService: MonitoringService,
+    private dialog: Dialog,
+  ) {
+      this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c));
+      this.apiDataTechnicsService.getIndectionsWorkShift().subscribe(c => console.log(c));
+    }
 
   public ngOnInit(): void {}
 
@@ -37,6 +35,14 @@ export class MineTechnincsHeadComponent implements OnInit  {
     if (this.technicsForm.valid) {
       console.log(this.technicsForm.value)
     }
+  }
+
+  public openDialog(data: { data: ITechnicData, name: string}): void {
+    this.dialog.open(DialogChartComponent, {
+      width:  '800px',
+      height: '800px',
+      data: data,
+    });
   }
 }
 

@@ -1,0 +1,18 @@
+<h1 class="dialog-name">{{ data.name }} {{data.data.indications[0].time }} Смена: {{ data.data.indications[0].work_shift }}</h1>
+<div class="dialog-container">
+    <mat-card *ngFor="let combine of data.data.indications[0].machine_readings" class="current-techincs__card">
+        <mat-card-header>
+        <mat-card-title>{{ combine.name_machine_readings }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <chart
+                class="chart "
+                [typeChart]="'bar'"
+                [indicitionsData]="combine.readings"
+                [indicitionsTimesData]="combine.times_readings"
+                [labelChart]="combine.name_machine_readings"
+                >
+            </chart>
+        </mat-card-content>
+    </mat-card>
+</div>

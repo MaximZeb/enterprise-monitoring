@@ -35,6 +35,7 @@ export interface ICombineComplexs {
     brigadir: string;
     combineId: string;
     bunkerId: string;
+    work_shift?: string;
     samohodniVagonId: string;
 }
 
@@ -49,3 +50,38 @@ export interface IUser {
 }
 
 export type IResourceData = {user: IUser, mine: IMine};
+
+export interface ITechnicData {
+    name: string;
+    indications: IIndicationsTechnicData[];
+}
+
+export interface IIndicationsTechnicData {
+    time: string;
+    work_shift: string;
+    machine_readings: IMachineReadingsData[];
+}
+
+export interface IMachineReadingsData {
+    name_machine_readings: string;
+    readings: number[];
+    times_readings: string[];
+}
+
+export interface IWorkShiftMonthPlan {
+    work_shift: string;
+    time: string;
+    indications_work_shift: {
+        times_readings: string[];
+        readings: number[];
+        plan: string;
+        name_machine_readings: string;
+    },
+    indications_month: {
+        times_readings: string[];
+        readings: number[];
+        plan: string;
+        name_month: string;
+        name_machine_readings: string;
+    }
+}
