@@ -33,8 +33,8 @@
             </div>
         </div>
         <div class="container-monitoring">
-            <mat-card class="name-work-shift">
-                Дата 16.12.2024, смена 1, 08:00 - 16:00  
+            <mat-card *ngIf="workShiftData | async as workShiftData" class="name-work-shift">
+                Дата {{ workShiftData.time| date:'dd.MM.yyyy' }}, смена 1, 08:00 - 16:00  
             </mat-card>
 
             <div class="container-technics__current-techinc">
@@ -106,68 +106,77 @@
                         </mat-card>
                     </ng-container>
                 </div>
-                <div class="container-dashodoard-work-shit">
-                    <div class="container-predict-dashodoard-work-shit">
-                        <mat-card>
-                            <mat-card-header>
-                                <mat-card-title>Декабрь</mat-card-title>
-                            </mat-card-header>
-                            <mat-card-content class="dashodoard">
-                                <div>
-                                    <span class="text">
-                                        План:
-                                    </span>
-                                    <span class="plan text">
-                                        3000Т
-                                    </span>
-                                </div>
-                                <div class="card-content-chart-doughnut">
-                                    <!-- <chart
-                                        [typeChart]="'pie'"
-                                        [data]="data"
-                                    ></chart> -->
-                                </div>
-                                <div class="predict text">
-                                    <span class="text">
-                                        Прогноз:
-                                    </span>
-                                    <span class="predict-up text">
-                                        5000Т
-                                    </span>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                        <mat-card>
-                            <mat-card-header>
-                                <mat-card-title>Декабрь</mat-card-title>
-                            </mat-card-header>
-                            <mat-card-content class="dashodoard">
-                                <div>
-                                    <span class="text">
-                                        План:
-                                    </span>
-                                    <span class="plan text">
-                                        3000Т
-                                    </span>
-                                </div>
-                                <div class="card-content-chart-doughnut">
-                                    <!-- <chart
-                                        [typeChart]="'doughnut'"
-                                        [data]="data"
-                                    ></chart> -->
-                                </div>
-                                <div class="predict text">
-                                    <span class="text">
-                                        Прогноз:
-                                    </span>
-                                    <span class="predict-down text">
-                                        500Т
-                                    </span>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
+
+                <ng-container *ngIf="workShiftData | async as workShiftData">
+                    <div class="container-dashodoard-work-shit">
+                        <div class="container-predict-dashodoard-work-shit">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title>{{ workShiftData.indications_month.name_month }}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content class="dashodoard">
+                                    <div>
+                                        <span class="text">
+                                            План:
+                                        </span>
+                                        <span class="plan text">
+                                            {{ workShiftData.indications_month.plan }} Т
+                                        </span>
+                                    </div>
+                                    <div class="card-content-chart-doughnut">
+                                        <chart
+                                            [typeChart]="'pie'"
+                                            [indicitionsData]="workShiftData.indications_month.readings"
+                                            [indicitionsTimesData]="workShiftData.indications_month.times_readings"
+                                            [labelChart]="workShiftData.indications_month.name_machine_readings"
+                                            [backgroundColor]="['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)']"
+                                        ></chart>
+                                    </div>
+                                    <div class="predict text">
+                                        <span class="text">
+                                            Прогноз:
+                                        </span>
+                                        <span class="predict-up text">
+                                            17000 Т
+                                        </span>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title>Смена {{ workShiftData.work_shift }}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content class="dashodoard">
+                                    <div>
+                                        <span class="text">
+                                            План:
+                                        </span>
+                                        <span class="plan text">
+                                            {{ workShiftData.indications_work_shift.plan }} Т
+                                        </span>
+                                    </div>
+                                    <div class="card-content-chart-doughnut">
+                                        <chart
+                                            [typeChart]="'pie'"
+                                            [indicitionsData]="workShiftData.indications_work_shift.readings"
+                                            [indicitionsTimesData]="workShiftData.indications_work_shift.times_readings"
+                                            [labelChart]="workShiftData.indications_work_shift.name_machine_readings"
+                                            [backgroundColor]="['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)']"
+                                    ></chart>
+                                    </div>
+                                    <div class="predict text">
+                                        <span class="text">
+                                            Прогноз:
+                                        </span>
+                                        <span class="predict-down text">
+                                            500Т
+                                        </span>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
             </div>
         </div>
     </div>

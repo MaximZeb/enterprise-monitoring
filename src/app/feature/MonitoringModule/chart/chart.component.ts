@@ -14,6 +14,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   @Input() public indicitionsData: number [] = [12, 19, 3, 5, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3] as number[];
   @Input() public indicitionsTimesData: string[] = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
   @Input() public labelChart: string  = 'Проходка, м';
+  @Input() public backgroundColor: string[]  = ['#07c184'];
+
   constructor() { }
 
   public ngOnInit(): void {}
@@ -29,7 +31,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
           label: this.labelChart, //название графика
           data: this.indicitionsData, // мои значения
           borderWidth: 1,
-          backgroundColor: "#07c184", //цвет
+          backgroundColor: this.backgroundColor, //цвет
           borderColor: "#07c184"
         }]
       },

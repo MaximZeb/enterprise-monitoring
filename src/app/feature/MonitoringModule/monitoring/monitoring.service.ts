@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ICombineComplexs, IResourceData, ISection, ITechnicData } from '../../API/api.interface';
+import { ICombineComplexs, IResourceData, ISection, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class MonitoringService {
   public sectionData: BehaviorSubject<ISection | null> = new BehaviorSubject<ISection | null>(null);
   public combineData: BehaviorSubject<ICombineComplexs | null> = new BehaviorSubject<ICombineComplexs | null>(null);
   public dataTechnics: BehaviorSubject<ITechnicData[] | null> = new BehaviorSubject<ITechnicData[] | null>(null);
-
+  public workShiftData: BehaviorSubject<IWorkShiftMonthPlan | null> = new BehaviorSubject<IWorkShiftMonthPlan | null>(null);
 
   public setUserData(data: IResourceData): void {
     this.userData.next(data);
@@ -42,5 +42,13 @@ export class MonitoringService {
 
   public setTechnicsData(dataTechnics: ITechnicData[]): void {
     return this.dataTechnics.next(dataTechnics);
+  }
+
+  public getWorkShiftData(): Observable<IWorkShiftMonthPlan | null> {
+    return this.workShiftData;
+  }
+
+  public setWorkShiftData(dataTechnics: IWorkShiftMonthPlan): void {
+    return this.workShiftData.next(dataTechnics);
   }
 }

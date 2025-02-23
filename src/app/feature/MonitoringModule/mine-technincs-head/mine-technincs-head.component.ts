@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { Observable } from 'rxjs';
-import { ITechnicData } from '../../API/api.interface';
+import { ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 
@@ -14,6 +14,7 @@ import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 })
 export class MineTechnincsHeadComponent implements OnInit  {
   public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
+  public workShiftData: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getWorkShiftData();
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
@@ -24,7 +25,8 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private monitoringService: MonitoringService,
     private dialog: Dialog,
   ) {
-      this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c))
+      this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c));
+      this.apiDataTechnicsService.getIndectionsWork_Shift().subscribe(c => console.log(c));
     }
 
   public ngOnInit(): void {}
