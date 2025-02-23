@@ -35,6 +35,7 @@ export interface ICombineComplexs {
     brigadir: string;
     combineId: string;
     bunkerId: string;
+    work_shift?: string;
     samohodniVagonId: string;
 }
 
