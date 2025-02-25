@@ -15,6 +15,8 @@ import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 export class MineTechnincsHeadComponent implements OnInit  {
   public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
   public workShiftData: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getWorkShiftData();
+  public x: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getXData();
+
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
@@ -27,13 +29,14 @@ export class MineTechnincsHeadComponent implements OnInit  {
   ) {
       this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c));
       this.apiDataTechnicsService.getIndectionsWorkShift().subscribe(c => console.log(c));
+      this.monitoringService.getXData().subscribe(c => console.log(c));
     }
 
   public ngOnInit(): void {}
 
   public findTechincs(): void {
-    if (this.technicsForm.valid) {
-      console.log(this.technicsForm.value)
+    if (this.technicsForm.valid) {   
+      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe()
     }
   }
 

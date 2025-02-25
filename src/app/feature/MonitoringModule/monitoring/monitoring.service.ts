@@ -11,6 +11,7 @@ export class MonitoringService {
   public combineData: BehaviorSubject<ICombineComplexs | null> = new BehaviorSubject<ICombineComplexs | null>(null);
   public dataTechnics: BehaviorSubject<ITechnicData[] | null> = new BehaviorSubject<ITechnicData[] | null>(null);
   public workShiftData: BehaviorSubject<IWorkShiftMonthPlan | null> = new BehaviorSubject<IWorkShiftMonthPlan | null>(null);
+  public xData: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
 
   public setUserData(data: IResourceData): void {
     this.userData.next(data);
@@ -50,5 +51,13 @@ export class MonitoringService {
 
   public setWorkShiftData(dataTechnics: IWorkShiftMonthPlan): void {
     return this.workShiftData.next(dataTechnics);
+  }
+
+  public getXData(): Observable<any | null> {
+    return this.xData;
+  }
+
+  public setXData(dataTechnics: any): void {
+    return this.xData.next(dataTechnics);
   }
 }

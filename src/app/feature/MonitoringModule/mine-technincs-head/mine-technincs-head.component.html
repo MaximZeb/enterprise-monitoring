@@ -1,4 +1,4 @@
-<ng-container *ngIf="tecnicsData | async as tecnicsData">
+<ng-container *ngIf="tecnicsData | async as tecnicsData; else empty">
     <div class="container-technics">
         <div class="container-technics__date-time">
             <div class="container__technics-form">
@@ -15,9 +15,9 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Рабочая смена</mat-label>
                         <mat-select formControlName="workingShift">
-                        <mat-option value="one">1 Смена</mat-option>
-                        <mat-option value="two">2 Смена</mat-option>
-                        <mat-option value="trhee">3 Смена</mat-option>
+                        <mat-option value="1">1 Смена</mat-option>
+                        <mat-option value="2">2 Смена</mat-option>
+                        <mat-option value="3">3 Смена</mat-option>
                         </mat-select>
                         <mat-hint *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
                     </mat-form-field>
@@ -182,3 +182,6 @@
     </div>
 </ng-container>
 
+<ng-template #empty>
+    <div>Нет данных</div>
+</ng-template>
