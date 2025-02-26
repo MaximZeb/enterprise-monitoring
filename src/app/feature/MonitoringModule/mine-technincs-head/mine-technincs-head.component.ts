@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { Observable } from 'rxjs';
-import { ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
+import { IAllIndications, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 
@@ -13,9 +13,7 @@ import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
   styleUrls: ['./mine-technincs-head.component.scss']
 })
 export class MineTechnincsHeadComponent implements OnInit  {
-  public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
-  public workShiftData: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getWorkShiftData();
-  public x: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getXData();
+  public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
 
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
@@ -25,11 +23,10 @@ export class MineTechnincsHeadComponent implements OnInit  {
   constructor(
     private apiDataTechnicsService: ApiDataTechnicsService,
     private monitoringService: MonitoringService,
-    private dialog: Dialog,
+    private dialog: Dialog
   ) {
-      this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c));
-      this.apiDataTechnicsService.getIndectionsWorkShift().subscribe(c => console.log(c));
-      this.monitoringService.getXData().subscribe(c => console.log(c));
+      this.apiDataTechnicsService.getIndectionsDataTechnicsRealtime().subscribe(c => console.log(c));
+      this.monitoringService.getAllIndications().subscribe(c => console.log(c));
     }
 
   public ngOnInit(): void {}

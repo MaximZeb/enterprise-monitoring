@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ICombineComplexs, IResourceData, ISection, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
+import { IAllIndications, ICombineComplexs, IResourceData, ISection, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class MonitoringService {
   public combineData: BehaviorSubject<ICombineComplexs | null> = new BehaviorSubject<ICombineComplexs | null>(null);
   public dataTechnics: BehaviorSubject<ITechnicData[] | null> = new BehaviorSubject<ITechnicData[] | null>(null);
   public workShiftData: BehaviorSubject<IWorkShiftMonthPlan | null> = new BehaviorSubject<IWorkShiftMonthPlan | null>(null);
-  public xData: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
+  public allIndications: BehaviorSubject<IAllIndications | null> = new BehaviorSubject<IAllIndications | null>(null);
 
   public setUserData(data: IResourceData): void {
     this.userData.next(data);
@@ -53,11 +53,11 @@ export class MonitoringService {
     return this.workShiftData.next(dataTechnics);
   }
 
-  public getXData(): Observable<any | null> {
-    return this.xData;
+  public getAllIndications(): Observable<IAllIndications | null> {
+    return this.allIndications;
   }
 
-  public setXData(dataTechnics: any): void {
-    return this.xData.next(dataTechnics);
+  public setAllIndications(dataTechnics: IAllIndications): void {
+    return this.allIndications.next(dataTechnics);
   }
 }

@@ -118,3 +118,5 @@ export interface IIndicationsWorkShift {
         name_machine_readings: string;
     };
 }
+
+export type IAllIndications = [ITechnicData, ITechnicData, ITechnicData, IIndicationsWorkShift, IIndicationsMonth];
