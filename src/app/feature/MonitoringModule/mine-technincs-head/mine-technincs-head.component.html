@@ -42,7 +42,8 @@
                     <ng-container *ngIf="tecnicsData[0] as combine">
                         <mat-card class="current-techincs__card">
                             <mat-card-header>
-                            <mat-card-title>{{ combine.name }}</mat-card-title>
+                            <mat-card-title>{{ combine.name }}
+                            </mat-card-title>
                             </mat-card-header>
                             <mat-card-content class="card-content">
                                 <div class="card-content-img-button">
@@ -50,9 +51,9 @@
                                     <button mat-raised-button (click)="openDialog({data: combine, name: combine.name})">Подробнее</button>
                                 </div>
                                 <div class="card-content-chart">
-                                    <chart 
+                                    <chart
                                         [typeChart]="'bar'"
-                                        [indicitionsData]="combine.indications[0].machine_readings[0].readings"
+                                        [indicitionsData]="getNewObj(combine.indications[0].machine_readings[0].readings)"
                                         [indicitionsTimesData]="combine.indications[0].machine_readings[0].times_readings"
                                         [labelChart]="combine.indications[0].machine_readings[0].name_machine_readings"
                                         >
@@ -74,7 +75,7 @@
                                 <div class="card-content-chart">
                                 <chart 
                                     [typeChart]="'bar'"
-                                    [indicitionsData]="bunker.indications[0].machine_readings[0].readings"
+                                    [indicitionsData]="getNewObj(bunker.indications[0].machine_readings[0].readings)"
                                     [indicitionsTimesData]="bunker.indications[0].machine_readings[0].times_readings"
                                     [labelChart]="bunker.indications[0].machine_readings[0].name_machine_readings"
                                     >
@@ -96,7 +97,7 @@
                                 <div class="card-content-chart">
                                     <chart 
                                         [typeChart]="'bar'"
-                                        [indicitionsData]="samohodniVagon.indications[0].machine_readings[0].readings"
+                                        [indicitionsData]="getNewObj(samohodniVagon.indications[0].machine_readings[0].readings)"
                                         [indicitionsTimesData]="samohodniVagon.indications[0].machine_readings[0].times_readings"
                                         [labelChart]="samohodniVagon.indications[0].machine_readings[0].name_machine_readings"
                                         >
@@ -126,7 +127,7 @@
                                     <div class="card-content-chart-doughnut">
                                         <chart
                                             [typeChart]="'pie'"
-                                            [indicitionsData]="month.indications_month.readings"
+                                            [indicitionsData]="getNewObj(month.indications_month.readings)"
                                             [indicitionsTimesData]="month.indications_month.times_readings"
                                             [labelChart]="month.indications_month.name_machine_readings"
                                             [backgroundColor]="['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)']"
@@ -160,7 +161,7 @@
                                     <div class="card-content-chart-doughnut">
                                         <chart
                                             [typeChart]="'pie'"
-                                            [indicitionsData]="workShift.indications_work_shift.readings"
+                                            [indicitionsData]="getNewObj(workShift.indications_work_shift.readings)"
                                             [indicitionsTimesData]="workShift.indications_work_shift.times_readings"
                                             [labelChart]="workShift.indications_work_shift.name_machine_readings"
                                             [backgroundColor]="['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)']"

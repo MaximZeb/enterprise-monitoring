@@ -54,6 +54,7 @@ export class MonitoringService {
   }
 
   public getAllIndications(): Observable<IAllIndications | null> {
+    console.log(this.allIndications)
     return this.allIndications;
   }
 

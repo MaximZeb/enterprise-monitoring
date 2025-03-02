@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { IAllIndications, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
+import { mockIndictions } from './mock-real-time';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -24,12 +25,15 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private apiDataTechnicsService: ApiDataTechnicsService,
     private monitoringService: MonitoringService,
     private dialog: Dialog
+
   ) {
-      this.apiDataTechnicsService.getIndectionsDataTechnicsRealtime().subscribe(c => console.log(c));
-      this.monitoringService.getAllIndications().subscribe(c => console.log(c));
+      // this.apiDataTechnicsService.getIndectionsDataTechnicsRealtime().subscribe(c => console.log(c));
+      // this.monitoringService.getAllIndications().subscribe(c => console.log(c));
     }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.monitoringService.setAllIndications(mockIndictions);
+  }
 
   public findTechincs(): void {
     if (this.technicsForm.valid) {   
@@ -43,6 +47,10 @@ export class MineTechnincsHeadComponent implements OnInit  {
       height: '800px',
       data: data,
     });
+  }
+
+  public getNewObj(readings: number[]): number[] {
+    return [...readings];
   }
 }
 

@@ -4,6 +4,7 @@ import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { catchError, filter, forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { IAllIndications, IIdDateWorkShift, IIndicationsMonth, IIndicationsWorkShift, IResponse, ISection, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
+import { mockIndictions } from '../mine-technincs-head/mock-real-time';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,24 @@ export class ApiDataTechnicsService {
   ) { }
 
   public getIndectionsDataTechnicsRealtime(): Observable<IAllIndications> {
-    this.progressSpinnerService.onProgressSpiner();
+    // this.progressSpinnerService.onProgressSpiner();
   
-    return this.apiService.get<IAllIndications>(`${this.apiService.rootUrl}/real_time`).pipe(
-      map((technic: IResponse<IAllIndications>) => technic.data),
-      tap(() => this.progressSpinnerService.offProgressSpiner()),
-      tap((data: IAllIndications) => {
-        this.monitoringService.setAllIndications(data)
-      }),
-      catchError((err) => {
-        this.progressSpinnerService.offProgressSpiner();
-        console.error('Error during forkJoin:', err);
-        return throwError(() => err);
-      })
-    );
+    // return this.apiService.get<IAllIndications>(`${this.apiService.rootUrl}/real_time`).pipe(
+    //   map((technic: IResponse<IAllIndications>) => technic.data),
+    //   tap(() => this.progressSpinnerService.offProgressSpiner()),
+      // tap((data: IAllIndications) => {
+      //   this.monitoringService.setAllIndications(data)
+      // }),
+    //   catchError((err) => {
+    //     // this.progressSpinnerService.offProgressSpiner();
+    //     console.error('Error during forkJoin:', err);
+    //     return throwError(() => err);
+    //   })
+    // );
+
+    return of(mockIndictions).pipe(tap((data: IAllIndications) => {
+      this.monitoringService.setAllIndications(data)
+    }),);
   }
 
   public getWorkShiftDate(workShiftDate: {date: Date, workingShift: string }): Observable<IAllIndications> {
