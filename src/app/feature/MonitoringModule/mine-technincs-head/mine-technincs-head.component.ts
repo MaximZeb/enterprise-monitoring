@@ -7,6 +7,7 @@ import { IAllIndications, ITechnicData, IWorkShiftMonthPlan } from '../../API/ap
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 import { mockIndictions } from './mock-real-time';
+import { NotificationService } from 'src/app/notification/notification.service';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -24,7 +25,8 @@ export class MineTechnincsHeadComponent implements OnInit  {
   constructor(
     private apiDataTechnicsService: ApiDataTechnicsService,
     private monitoringService: MonitoringService,
-    private dialog: Dialog
+    private dialog: Dialog,
+    private notificationService: NotificationService
 
   ) {
       // this.apiDataTechnicsService.getIndectionsDataTechnicsRealtime().subscribe(c => console.log(c));
@@ -51,6 +53,23 @@ export class MineTechnincsHeadComponent implements OnInit  {
 
   public getNewObj(readings: number[]): number[] {
     return [...readings];
+  }
+
+  public runCurrentWorkShift() {
+    this.monitoringService.setAllIndications([...mockIndictions]);
+    this.showNotification();
+  }
+
+  showNotification(): void {
+    this.notificationService.showNotification('This is a single notification!');
+  }
+
+  showMultipleNotifications(): void {
+    this.notificationService.showNotification([
+      'Notification 1',
+      'Notification 2',
+      'Notification 3'
+    ]);
   }
 }
 

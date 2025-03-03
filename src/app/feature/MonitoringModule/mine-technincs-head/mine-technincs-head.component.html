@@ -29,6 +29,12 @@
                     Построить
                 </button>
             </form>
+            <button 
+                mat-raised-button 
+                (click)="runCurrentWorkShift()"
+                >
+                Текущая смена
+            </button>
         </div>
     </div>
     <ng-container *ngIf="allIndications | async as tecnicsData; else empty">
