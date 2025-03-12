@@ -1,39 +1,53 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { interval, Subscription, takeUntil, timer } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NotificationService, NotificationData } from './notification.service';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
-  @Input() message!: string;
-  @Output() close = new EventEmitter<void>();
+export class NotificationComponent implements OnInit, OnDestroy {
+  notifications: NotificationData[] = [];
+  private notificationSubscription: Subscription | undefined;
 
-  private timerSubscription!: Subscription;
-  private autoCloseDuration: number = 60000; // 60 seconds
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this.startAutoCloseTimer();
+    this.notificationSubscription = this.notificationService.notifications$.subscribe(
+      (notification: NotificationData) => {
+        this.addNotification(notification);
+      }
+    );
   }
 
   ngOnDestroy(): void {
-    this.stopAutoCloseTimer();
+    if (this.notificationSubscription) {
+      this.notificationSubscription.unsubscribe();
+    }
   }
 
-  closeNotification(): void {
-    this.close.emit();
+  addNotification(notification: NotificationData): void {
+    this.notifications.push(notification);
+    if (notification.timeout) {
+      setTimeout(() => {
+        this.closeNotification(notification);
+      }, notification.timeout * 1000);
+    }
   }
 
-  private startAutoCloseTimer(): void {
-    this.timerSubscription = timer(this.autoCloseDuration).subscribe(() => { // Use timer
-      this.closeNotification();
-    });
+  closeNotification(notification: NotificationData): void {
+    this.notifications = this.notifications.filter((n) => n !== notification);
   }
 
-  private stopAutoCloseTimer(): void {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
+  getNotificationClass(type: 'yellow' | 'red'): string {
+    switch (type) {
+      case 'yellow':
+        return 'notification-yellow';
+      case 'red':
+        return 'notification-red';
+      default:
+        return 'notification-yellow';
     }
   }
 }

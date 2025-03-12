@@ -57,19 +57,20 @@ export class MineTechnincsHeadComponent implements OnInit  {
 
   public runCurrentWorkShift() {
     this.monitoringService.setAllIndications([...mockIndictions]);
-    this.showNotification();
+    this.showYellowNotification();
+    this.showRedNotification();
   }
 
-  showNotification(): void {
-    this.notificationService.showNotification('This is a single notification!');
+  // public showNotification(): void {
+  //   this.notificationService.showNotification('This is a single notification!');
+  // }
+
+  showYellowNotification(): void {
+    this.notificationService.yellow('Yellow alertasd asd asdasdasdasdasdqeacvsdvs df 21334sdddddddddddddddddddddddddddddddddddddddddddd!');
   }
 
-  showMultipleNotifications(): void {
-    this.notificationService.showNotification([
-      'Notification 1',
-      'Notification 2',
-      'Notification 3'
-    ]);
+  showRedNotification(): void {
+    this.notificationService.red('Red errorааааааааааааааааааааааааааааааааааlorem  asdasdasdasdas!');
   }
 }
 

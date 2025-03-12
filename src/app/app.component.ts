@@ -24,22 +24,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/auth'], {
       replaceUrl: true
     });
-
-    this.notificationSubscription = this.notificationService.notification$.subscribe(
-      message => {
-        if (typeof message === 'string') {
-          if (!this.notifications.includes(message)) {
-            this.notifications.push(message);
-          }
-        } else if (Array.isArray(message)) {
-          message.forEach(msg => {
-            if (!this.notifications.includes(msg)) {
-              this.notifications.push(msg);
-            }
-          });
-        }
-      }
-    );
   }
 
   ngOnDestroy(): void {

@@ -1,24 +1,58 @@
+.notification-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
 .notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-  
-    .notification-content {
-      margin-right: 10px;
-    }
-  
-    .close-button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-  }
+  width: 300px; /* Фиксированная ширина */
+  height: 70px; /* Фиксированная высота */
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Важно: выравнивание по верхнему краю */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease;
+  word-break: break-word; /* Добавляем перенос слов */
+}
+
+.notification-yellow {
+  background-color: #fff3cd; /* Yellow */
+  border-color: #ffeeba;
+  color: #856404;
+}
+
+.notification-red {
+  background-color: #f8d7da; /* Red */
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.message {
+  flex-grow: 1;
+  overflow: auto; /* Разрешаем прокрутку, если текст слишком длинный */
+  white-space: normal; /* Разрешаем перенос текста на новую строку */
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #888;
+  margin-left: 10px;
+  align-self: flex-start;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.notification.fade-out {
+  opacity: 0;
+}
