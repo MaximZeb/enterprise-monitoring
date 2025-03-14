@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
@@ -17,6 +18,7 @@ import { NotificationService } from 'src/app/notification/notification.service';
 export class MineTechnincsHeadComponent implements OnInit  {
   public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
   public predictFact: null | { fact: number; } = null;
+  private intervalId: any;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
@@ -30,12 +32,14 @@ export class MineTechnincsHeadComponent implements OnInit  {
   ) {}
 
   public ngOnInit(): void {
-    this.monitoringService.setAllIndications(mockIndictions);
+    this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
+    this.runCurrentWorkShift();
     this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
   }
 
   public findTechincs(): void {
-    if (this.technicsForm.valid) {   
+    if (this.technicsForm.valid) {
+      clearInterval(this.intervalId);
       this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe()
     }
   }
@@ -44,26 +48,23 @@ export class MineTechnincsHeadComponent implements OnInit  {
     this.dialog.open(DialogChartComponent, {
       width:  '800px',
       height: '800px',
-      data: data,
+      data: _.cloneDeep(data),
     });
   }
 
-  public getNewObj(readings: number[]): number[] {
-    return [...readings];
-  }
-
   public runCurrentWorkShift() {
-    this.monitoringService.setAllIndications([...mockIndictions]);
-    this.showYellowNotification();
-    this.showRedNotification();
+    this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
+
+    // this.showYellowNotification();
+    // this.showRedNotification();
   }
 
   public showYellowNotification(): void {
-    this.notificationService.yellow('Yellow alertasd asd asdasdasdasdasdqeacvsdvs df 21334sdddddddddddddddddddddddddddddddddddddddddddd!');
+    this.notificationService.yellow('Yellow alert!');
   }
 
   public showRedNotification(): void {
-    this.notificationService.red('Red errorааааааааааааааааааааааааааааааааааlorem  asdasdasdasdas!');
+    this.notificationService.red('Red error!');
   }
 }
 
