@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
-import { Observable, tap } from 'rxjs';
-import { IAllIndications, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
+import { Observable } from 'rxjs';
+import { IAllIndications, ITechnicData } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 import { mockIndictions } from './mock-real-time';
@@ -16,7 +16,7 @@ import { NotificationService } from 'src/app/notification/notification.service';
 })
 export class MineTechnincsHeadComponent implements OnInit  {
   public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
-
+  public predictFact: null | { fact: number; } = null;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
@@ -27,14 +27,11 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private monitoringService: MonitoringService,
     private dialog: Dialog,
     private notificationService: NotificationService
-
-  ) {
-      // this.apiDataTechnicsService.getIndectionsDataTechnicsRealtime().subscribe(c => console.log(c));
-      // this.monitoringService.getAllIndications().subscribe(c => console.log(c));
-    }
+  ) {}
 
   public ngOnInit(): void {
     this.monitoringService.setAllIndications(mockIndictions);
+    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
   }
 
   public findTechincs(): void {
@@ -61,15 +58,11 @@ export class MineTechnincsHeadComponent implements OnInit  {
     this.showRedNotification();
   }
 
-  // public showNotification(): void {
-  //   this.notificationService.showNotification('This is a single notification!');
-  // }
-
-  showYellowNotification(): void {
+  public showYellowNotification(): void {
     this.notificationService.yellow('Yellow alertasd asd asdasdasdasdasdqeacvsdvs df 21334sdddddddddddddddddddddddddddddddddddddddddddd!');
   }
 
-  showRedNotification(): void {
+  public showRedNotification(): void {
     this.notificationService.red('Red errorааааааааааааааааааааааааааааааааааlorem  asdasdasdasdas!');
   }
 }

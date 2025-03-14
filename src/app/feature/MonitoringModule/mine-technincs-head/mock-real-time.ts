@@ -1319,7 +1319,7 @@ export let mockIndictions: IAllIndications = [
             23,
             77
           ],
-          plan: "800",
+          plan: "550",
           name_machine_readings: "Добыча руды, т"
         }
     },

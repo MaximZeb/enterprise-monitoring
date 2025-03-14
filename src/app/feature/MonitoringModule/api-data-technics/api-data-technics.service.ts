@@ -16,25 +16,10 @@ export class ApiDataTechnicsService {
     private monitoringService: MonitoringService,
   ) { }
 
-  public getIndectionsDataTechnicsRealtime(): Observable<IAllIndications> {
-    // this.progressSpinnerService.onProgressSpiner();
-  
-    // return this.apiService.get<IAllIndications>(`${this.apiService.rootUrl}/real_time`).pipe(
-    //   map((technic: IResponse<IAllIndications>) => technic.data),
-    //   tap(() => this.progressSpinnerService.offProgressSpiner()),
-      // tap((data: IAllIndications) => {
-      //   this.monitoringService.setAllIndications(data)
-      // }),
-    //   catchError((err) => {
-    //     // this.progressSpinnerService.offProgressSpiner();
-    //     console.error('Error during forkJoin:', err);
-    //     return throwError(() => err);
-    //   })
-    // );
+  public getPredictFact(plan: number): Observable<IResponse<{ fact: number }>> {
+    const jsonUserInfo: string = JSON.stringify({ plan: plan });
 
-    return of(mockIndictions).pipe(tap((data: IAllIndications) => {
-      this.monitoringService.setAllIndications(data)
-    }),);
+    return this.apiService.post<{ fact: number }>(`${this.apiService.rootUrl}/predict`, jsonUserInfo);
   }
 
   public getWorkShiftDate(workShiftDate: {date: Date, workingShift: string }): Observable<IAllIndications> {

@@ -52,8 +52,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
       this.chart.data.datasets[0].data = this.indicitionsData;
       this.chart.data.labels = this.indicitionsTimesData;
       this.chart.update();
-      console.log('update');
     }
-    console.log('changes');
   }
 }
