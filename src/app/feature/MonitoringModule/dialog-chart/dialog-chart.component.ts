@@ -12,13 +12,11 @@ export interface DialogData {
   styleUrls: ['./dialog-chart.component.scss']
 })
 export class DialogChartComponent implements OnInit {
+  constructor(@Inject(DIALOG_DATA) public data: { data: ITechnicData, name: string}, private dialogRef: DialogRef<DialogChartComponent>) {}
 
-  constructor(@Inject(DIALOG_DATA) public data: { data: ITechnicData, name: string}, public dialogRef: DialogRef<DialogChartComponent>) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  closeDialog() {
+  public closeDialog(): void {
     this.dialogRef.close();
   }
 }

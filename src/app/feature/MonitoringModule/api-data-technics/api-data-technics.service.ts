@@ -23,9 +23,10 @@ export class ApiDataTechnicsService {
   }
 
   public getWorkShiftDate(workShiftDate: {date: Date, workingShift: string }): Observable<IAllIndications> {
+    const milesecunds: string = workShiftDate.date.getTime().toString();
     this.progressSpinnerService.onProgressSpiner();
 
-    return this.apiService.get<IIdDateWorkShift>(`${this.apiService.rootUrl}/work_shift/1/${workShiftDate.workingShift}/`).pipe(
+    return this.apiService.get<IIdDateWorkShift>(`${this.apiService.rootUrl}/work_shift/1/1/`).pipe(
       map((technic: IResponse<IIdDateWorkShift>) => technic.data),
       tap(() => this.progressSpinnerService.offProgressSpiner()),
       switchMap((idDocuments: IIdDateWorkShift) => {
@@ -42,6 +43,12 @@ export class ApiDataTechnicsService {
             map((technic: IResponse<IIndicationsMonth>) => technic.data))
         ]).pipe(
           tap((data: IAllIndications) => {
+            let response: IAllIndications = data;
+            response[0].indications[0].time = milesecunds;
+            response[1].indications[0].time = milesecunds;
+            response[2].indications[0].time = milesecunds;
+            response[3].time = milesecunds;
+
             this.monitoringService.setAllIndications(data)
           })
         );
