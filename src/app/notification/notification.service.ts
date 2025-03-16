@@ -13,18 +13,18 @@ export interface NotificationData {
 export class NotificationService {
   private notificationsSubject = new Subject<NotificationData>();
 
-  notifications$ = this.notificationsSubject.asObservable();
+  public notifications$ = this.notificationsSubject.asObservable();
 
-  show(message: string, type: 'yellow' | 'red' = 'yellow', timeout: number = 60): void {
+  public show(message: string, type: 'yellow' | 'red' = 'yellow', timeout: number = 60): void {
     this.notificationsSubject.next({ message, type, timeout });
   }
 
   // Удобные методы
-  yellow(message: string, timeout: number = 60): void {
+  public yellow(message: string, timeout: number = 60): void {
     this.show(message, 'yellow', timeout);
   }
 
-  red(message: string, timeout: number = 60): void {
+  public red(message: string, timeout: number = 60): void {
     this.show(message, 'red', timeout);
   }
 }

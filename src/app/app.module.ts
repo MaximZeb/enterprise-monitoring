@@ -13,7 +13,7 @@ import { NotificationComponent } from './notification/notification.component';
   declarations: [
     AppComponent,
     ProgressSpinerComponent,
-    NotificationComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,8 @@ import { NotificationService } from 'src/app/notification/notification.service';
 export class MineTechnincsHeadComponent implements OnInit  {
   public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
   public predictFact: null | { fact: number; } = null;
+  public currentWorkShift: boolean = true;
+
   private intervalId: any;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
@@ -39,6 +41,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
 
   public findTechincs(): void {
     if (this.technicsForm.valid) {
+      this.currentWorkShift = !this.currentWorkShift;
       clearInterval(this.intervalId);
       this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe()
     }
@@ -54,6 +57,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
 
   public runCurrentWorkShift() {
     this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
+    this.currentWorkShift = !this.currentWorkShift;
 
     // this.showYellowNotification();
     // this.showRedNotification();

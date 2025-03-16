@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProgressSpinnerService } from './progress-spiner/progress-spinner.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { NotificationService } from './notification/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +10,12 @@ import { NotificationService } from './notification/notification.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public isShowProgressSpiner: BehaviorSubject<boolean> = this.progressSpinnerService.isShowProgressSpiner;
-  notifications: string[] = [];
+  public notifications: string[] = [];
   private notificationSubscription!: Subscription;
   
   public constructor (
     private router: Router,
-    private progressSpinnerService: ProgressSpinnerService,
-    private notificationService: NotificationService
+    private progressSpinnerService: ProgressSpinnerService
   ) {}
 
   public ngOnInit(): void {
@@ -26,17 +24,17 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     if (this.notificationSubscription) {
       this.notificationSubscription.unsubscribe();
     }
   }
 
-  closeNotification(index: number): void {
+  public closeNotification(index: number): void {
     this.notifications.splice(index, 1);
   }
 
-  trackByFn(index: number, item: any): any {
+  public trackByFn(index: number): number {
     return index;
   }
 }

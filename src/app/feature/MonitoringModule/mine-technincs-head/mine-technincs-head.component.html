@@ -175,10 +175,10 @@
                                     </div>
                                     <div class="predict text">
                                         <span class="text">
-                                            Итого:
+                                            {{ currentWorkShift ? 'Итого:' : 'Прогноз:' }}
                                         </span>
                                         <span class="predict-down text">
-                                            {{ predictFact ? predictFact.fact : 500 }} Т
+                                            {{ currentWorkShift ? 500 : predictFact?.fact }} Т
                                         </span>
                                     </div>
                                 </mat-card-content>
