@@ -1,4 +1,4 @@
-import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ITechnicData } from '../../API/api.interface';
 
@@ -13,9 +13,12 @@ export interface DialogData {
 })
 export class DialogChartComponent implements OnInit {
 
-  constructor(@Inject(DIALOG_DATA) public data: { data: ITechnicData, name: string}) {}
+  constructor(@Inject(DIALOG_DATA) public data: { data: ITechnicData, name: string}, public dialogRef: DialogRef<DialogChartComponent>) {}
 
   ngOnInit(): void {
-    console.log(this.data)
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

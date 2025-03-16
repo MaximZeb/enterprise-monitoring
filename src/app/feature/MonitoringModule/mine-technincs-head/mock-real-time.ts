@@ -1,4 +1,6 @@
 import { IAllIndications, ITechnicData } from "../../API/api.interface";
+const now = new Date();
+const milliseconds: string = now.getTime().toString();
 
 export let mockIndictions: IAllIndications = [
     {
@@ -1310,7 +1312,7 @@ export let mockIndictions: IAllIndications = [
     },
     {
         work_shift: "1",
-        time: "174593111",
+        time: milliseconds,
         indications_work_shift: {
           times_readings: [
             "Добыча руды, т"
@@ -1363,7 +1365,7 @@ function planWorkShift() {
 
   mockIndictions[3].indications_work_shift.readings = arr;
 }
-
+// вес бункера
 function wesBP() {
   mockIndictions[2].indications[0].machine_readings[0].readings.push(Math.round((Math.random() * 17) * 100) / 100)
 }
@@ -1374,8 +1376,8 @@ setInterval(() => {
   counterUral(24, 2, 0.03);
   counterUral(24, 3, 0.01);
   counterUral(5, 0, 0.1, true, 1);
-  wesBP();
-  console.log(mockIndictions[0].indications[0].machine_readings[1].readings);
+  // wesBP();
+  // console.log(mockIndictions[0].indications[0].machine_readings[1].readings);
   // console.log(mockIndictions[0].indications[0].machine_readings[2].readings);
   // console.log(mockIndictions[1].indications[0].machine_readings[0].readings);
   // console.log(mockIndictions[2].indications[0].machine_readings[0].readings);

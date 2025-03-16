@@ -6,7 +6,7 @@
                 <mat-form-field appearance="fill">
                     <mat-label>День месяца</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="date">
-                    <mat-hint *ngIf="technicsForm.controls['date'].invalid && technicsForm.controls['date'].touched">Поле обязательно</mat-hint>
+                    <mat-hint class="form_hint" *ngIf="technicsForm.controls['date'].invalid && technicsForm.controls['date'].touched">Поле обязательно</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -18,7 +18,7 @@
                     <mat-option value="2">2 Смена</mat-option>
                     <mat-option value="3">3 Смена</mat-option>
                     </mat-select>
-                    <mat-hint *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
+                    <mat-hint class="form_hint" *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
                 </mat-form-field>
                 <button 
                     mat-raised-button 
