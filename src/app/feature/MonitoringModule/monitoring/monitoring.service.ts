@@ -58,7 +58,7 @@ export class MonitoringService {
     return this.allIndications;
   }
 
-  public setAllIndications(dataTechnics: IAllIndications): void {
+  public setAllIndications(dataTechnics: IAllIndications | null): void {
     return this.allIndications.next(dataTechnics);
   }
 }

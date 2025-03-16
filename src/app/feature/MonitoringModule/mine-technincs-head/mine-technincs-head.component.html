@@ -192,5 +192,13 @@
 </div>
 
 <ng-template #empty>
-    <div>Нет данных</div>
+    <div class="error">
+        <h2>Нет данных</h2>
+        <button 
+        mat-raised-button 
+        (click)="runCurrentWorkShift()"
+        >
+        Текущая смена
+    </button>
+    </div>
 </ng-template>

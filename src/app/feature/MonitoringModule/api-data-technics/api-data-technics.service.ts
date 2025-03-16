@@ -55,7 +55,7 @@ export class ApiDataTechnicsService {
       }),
       catchError((err) => {
         this.progressSpinnerService.offProgressSpiner();
-        console.error('Error during forkJoin:', err);
+        this.monitoringService.setAllIndications(null);
         return throwError(() => []);
       })
     );
