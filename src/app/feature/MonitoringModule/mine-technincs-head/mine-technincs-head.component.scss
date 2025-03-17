@@ -5,7 +5,9 @@
 
 .container__technics-form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
     width: 450px;
     margin-top: 30px;
     height: calc(100vh - 175px);
@@ -23,6 +25,10 @@
     display: flex;
     flex-direction: column;
     row-gap: 15px;
+}
+
+.form_hint {
+    color: #f44336;
 }
 
 .container-technics__current-techinc {
@@ -110,4 +116,12 @@
 
 .predict-down {
     background-color: #F69393;
+}
+
+.error {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

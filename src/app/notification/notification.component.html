@@ -1,0 +1,11 @@
+<div class="notification-container">
+  <div *ngFor="let notification of notifications; let i = index"
+       class="notification"
+       [ngClass]="getNotificationClass(notification.type)"
+       [style.bottom.px]="i * 110 + 20">  <!-- Смещение по вертикали -->
+    <span class="message">{{ notification.message }}</span>
+    <button class="close-button" (click)="closeNotification(notification)">
+      &times;
+    </button>
+  </div>
+</div>

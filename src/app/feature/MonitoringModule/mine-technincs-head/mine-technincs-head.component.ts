@@ -1,11 +1,14 @@
+import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { Observable } from 'rxjs';
-import { ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
+import { IAllIndications, ITechnicData } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
+import { mockIndictions } from './mock-real-time';
+import { NotificationService } from 'src/app/notification/notification.service';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -13,8 +16,11 @@ import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
   styleUrls: ['./mine-technincs-head.component.scss']
 })
 export class MineTechnincsHeadComponent implements OnInit  {
-  public tecnicsData: Observable<ITechnicData[] | null> = this.monitoringService.getTechnicsData();
-  public workShiftData: Observable<IWorkShiftMonthPlan | null> = this.monitoringService.getWorkShiftData();
+  public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
+  public predictFact: null | { fact: number; } = null;
+  public currentWorkShift: boolean = true;
+
+  private intervalId: any;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
@@ -24,16 +30,20 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private apiDataTechnicsService: ApiDataTechnicsService,
     private monitoringService: MonitoringService,
     private dialog: Dialog,
-  ) {
-      this.apiDataTechnicsService.getIndectionsDataTechnics().subscribe(c => console.log(c));
-      this.apiDataTechnicsService.getIndectionsWorkShift().subscribe(c => console.log(c));
-    }
+    private notificationService: NotificationService
+  ) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
+    this.runCurrentWorkShift();
+    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
+  }
 
   public findTechincs(): void {
     if (this.technicsForm.valid) {
-      console.log(this.technicsForm.value)
+      this.currentWorkShift = !this.currentWorkShift;
+      clearInterval(this.intervalId);
+      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe()
     }
   }
 
@@ -41,8 +51,24 @@ export class MineTechnincsHeadComponent implements OnInit  {
     this.dialog.open(DialogChartComponent, {
       width:  '800px',
       height: '800px',
-      data: data,
+      data: _.cloneDeep(data),
     });
+  }
+
+  public runCurrentWorkShift() {
+    this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
+    this.currentWorkShift = !this.currentWorkShift;
+
+    // this.showYellowNotification();
+    // this.showRedNotification();
+  }
+
+  public showYellowNotification(): void {
+    this.notificationService.yellow('Yellow alert!');
+  }
+
+  public showRedNotification(): void {
+    this.notificationService.red('Red error!');
   }
 }
 

@@ -6,16 +6,19 @@
 }
 
 .notification {
+  width: 300px; /* Фиксированная ширина */
+  height: 70px; /* Фиксированная высота */
   background-color: #f0f0f0;
   border: 1px solid #ccc;
-  padding: 10px 15px;
+  padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; /* Важно: выравнивание по верхнему краю */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: opacity 0.3s ease;
+  word-break: break-word; /* Добавляем перенос слов */
 }
 
 .notification-yellow {
@@ -32,6 +35,8 @@
 
 .message {
   flex-grow: 1;
+  overflow: auto; /* Разрешаем прокрутку, если текст слишком длинный */
+  white-space: normal; /* Разрешаем перенос текста на новую строку */
 }
 
 .close-button {
@@ -41,6 +46,7 @@
   cursor: pointer;
   color: #888;
   margin-left: 10px;
+  align-self: flex-start;
 }
 
 .close-button:hover {

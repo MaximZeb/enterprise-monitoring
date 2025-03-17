@@ -1,40 +1,46 @@
-<ng-container *ngIf="tecnicsData | async as tecnicsData">
-    <div class="container-technics">
-        <div class="container-technics__date-time">
-            <div class="container__technics-form">
-                <form class="technics-form" [formGroup]="technicsForm" (ngSubmit)="findTechincs()">
-                    <div>Дата</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>День месяца</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="date">
-                        <mat-hint *ngIf="technicsForm.controls['date'].invalid && technicsForm.controls['date'].touched">Поле обязательно</mat-hint>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                    <div>Cмена</div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Рабочая смена</mat-label>
-                        <mat-select formControlName="workingShift">
-                        <mat-option value="one">1 Смена</mat-option>
-                        <mat-option value="two">2 Смена</mat-option>
-                        <mat-option value="trhee">3 Смена</mat-option>
-                        </mat-select>
-                        <mat-hint *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
-                    </mat-form-field>
-                    <button 
-                        mat-raised-button 
-                        type="submit"
-                        [disabled]="!technicsForm.valid" 
-                        class="find-work-shift" 
-                        >
-                        Построить
-                    </button>
-                </form>
-            </div>
+<div class="container-technics">
+    <div class="container-technics__date-time">
+        <div class="container__technics-form">
+            <form class="technics-form" [formGroup]="technicsForm" (ngSubmit)="findTechincs()">
+                <div>Дата</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>День месяца</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date">
+                    <mat-hint class="form_hint" *ngIf="technicsForm.controls['date'].invalid && technicsForm.controls['date'].touched">Поле обязательно</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div>Cмена</div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Рабочая смена</mat-label>
+                    <mat-select formControlName="workingShift">
+                    <mat-option value="1">1 Смена</mat-option>
+                    <mat-option value="2">2 Смена</mat-option>
+                    <mat-option value="3">3 Смена</mat-option>
+                    </mat-select>
+                    <mat-hint class="form_hint" *ngIf="technicsForm.controls['workingShift'].invalid && technicsForm.controls['workingShift'].touched">Поле обязательно</mat-hint>
+                </mat-form-field>
+                <button 
+                    mat-raised-button 
+                    type="submit"
+                    [disabled]="!technicsForm.valid" 
+                    class="find-work-shift" 
+                    >
+                    Построить
+                </button>
+            </form>
+            <button 
+                mat-raised-button 
+                (click)="runCurrentWorkShift()"
+                >
+                Текущая смена
+            </button>
         </div>
+    </div>
+    <ng-container *ngIf="allIndications | async as tecnicsData; else empty">
         <div class="container-monitoring">
-            <mat-card *ngIf="workShiftData | async as workShiftData" class="name-work-shift">
-                Дата {{ workShiftData.time| date:'dd.MM.yyyy' }}, смена 1, 08:00 - 16:00  
+            <mat-card *ngIf="tecnicsData[3] as workShiftData" class="name-work-shift">
+                Дата {{ workShiftData.time | date:'dd.MM.yyyy' }}, смена 1, 08:00 - 16:00  
             </mat-card>
 
             <div class="container-technics__current-techinc">
@@ -42,7 +48,8 @@
                     <ng-container *ngIf="tecnicsData[0] as combine">
                         <mat-card class="current-techincs__card">
                             <mat-card-header>
-                            <mat-card-title>{{ combine.name }}</mat-card-title>
+                            <mat-card-title>{{ combine.name }}
+                            </mat-card-title>
                             </mat-card-header>
                             <mat-card-content class="card-content">
                                 <div class="card-content-img-button">
@@ -50,7 +57,7 @@
                                     <button mat-raised-button (click)="openDialog({data: combine, name: combine.name})">Подробнее</button>
                                 </div>
                                 <div class="card-content-chart">
-                                    <chart 
+                                    <chart
                                         [typeChart]="'bar'"
                                         [indicitionsData]="combine.indications[0].machine_readings[0].readings"
                                         [indicitionsTimesData]="combine.indications[0].machine_readings[0].times_readings"
@@ -107,12 +114,12 @@
                     </ng-container>
                 </div>
 
-                <ng-container *ngIf="workShiftData | async as workShiftData">
-                    <div class="container-dashodoard-work-shit">
-                        <div class="container-predict-dashodoard-work-shit">
+                <div class="container-dashodoard-work-shit">
+                    <div class="container-predict-dashodoard-work-shit">
+                        <ng-container *ngIf="tecnicsData[4] as month">
                             <mat-card>
                                 <mat-card-header>
-                                    <mat-card-title>{{ workShiftData.indications_month.name_month }}</mat-card-title>
+                                    <mat-card-title>{{ month.indications_month.name_month }}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content class="dashodoard">
                                     <div>
@@ -120,21 +127,21 @@
                                             План:
                                         </span>
                                         <span class="plan text">
-                                            {{ workShiftData.indications_month.plan }} Т
+                                            {{ month.indications_month.plan }} Т
                                         </span>
                                     </div>
                                     <div class="card-content-chart-doughnut">
                                         <chart
                                             [typeChart]="'pie'"
-                                            [indicitionsData]="workShiftData.indications_month.readings"
-                                            [indicitionsTimesData]="workShiftData.indications_month.times_readings"
-                                            [labelChart]="workShiftData.indications_month.name_machine_readings"
+                                            [indicitionsData]="month.indications_month.readings"
+                                            [indicitionsTimesData]="month.indications_month.times_readings"
+                                            [labelChart]="month.indications_month.name_machine_readings"
                                             [backgroundColor]="['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)']"
                                         ></chart>
                                     </div>
                                     <div class="predict text">
                                         <span class="text">
-                                            Прогноз:
+                                            Итого:
                                         </span>
                                         <span class="predict-up text">
                                             17000 Т
@@ -142,9 +149,11 @@
                                     </div>
                                 </mat-card-content>
                             </mat-card>
+                        </ng-container>
+                        <ng-container *ngIf="tecnicsData[3] as workShift">
                             <mat-card>
                                 <mat-card-header>
-                                    <mat-card-title>Смена {{ workShiftData.work_shift }}</mat-card-title>
+                                    <mat-card-title>Смена {{ workShift.work_shift }}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content class="dashodoard">
                                     <div>
@@ -152,33 +161,44 @@
                                             План:
                                         </span>
                                         <span class="plan text">
-                                            {{ workShiftData.indications_work_shift.plan }} Т
+                                            {{ workShift.indications_work_shift.plan }} Т
                                         </span>
                                     </div>
                                     <div class="card-content-chart-doughnut">
                                         <chart
                                             [typeChart]="'pie'"
-                                            [indicitionsData]="workShiftData.indications_work_shift.readings"
-                                            [indicitionsTimesData]="workShiftData.indications_work_shift.times_readings"
-                                            [labelChart]="workShiftData.indications_work_shift.name_machine_readings"
+                                            [indicitionsData]="workShift.indications_work_shift.readings"
+                                            [indicitionsTimesData]="workShift.indications_work_shift.times_readings"
+                                            [labelChart]="workShift.indications_work_shift.name_machine_readings"
                                             [backgroundColor]="['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)']"
                                     ></chart>
                                     </div>
                                     <div class="predict text">
                                         <span class="text">
-                                            Прогноз:
+                                            {{ currentWorkShift ? 'Итого:' : 'Прогноз:' }}
                                         </span>
                                         <span class="predict-down text">
-                                            500Т
+                                            {{ currentWorkShift ? 500 : predictFact?.fact }} Т
                                         </span>
                                     </div>
                                 </mat-card-content>
                             </mat-card>
-                        </div>
+                        </ng-container>
                     </div>
-                </ng-container>
+                </div>
             </div>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
+</div>
 
+<ng-template #empty>
+    <div class="error">
+        <h2>Нет данных</h2>
+        <button 
+        mat-raised-button 
+        (click)="runCurrentWorkShift()"
+        >
+        Текущая смена
+    </button>
+    </div>
+</ng-template>

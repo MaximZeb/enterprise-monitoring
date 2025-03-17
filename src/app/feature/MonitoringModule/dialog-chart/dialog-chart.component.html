@@ -1,4 +1,7 @@
-<h1 class="dialog-name">{{ data.name }} {{data.data.indications[0].time }} Смена: {{ data.data.indications[0].work_shift }}</h1>
+<div class="header-dialog">
+    <h1 class="dialog-name">{{ data.name }} {{ data.data.indications[0].time | date:'dd.MM.yyyy'  }} Смена: {{ data.data.indications[0].work_shift }}</h1>
+    <div class="header-dialog-close-icon" (click)="closeDialog()">X</div>
+</div>
 <div class="dialog-container">
     <mat-card *ngFor="let combine of data.data.indications[0].machine_readings" class="current-techincs__card">
         <mat-card-header>

@@ -71,6 +71,10 @@ export interface IMachineReadingsData {
 export interface IWorkShiftMonthPlan {
     work_shift: string;
     time: string;
+    combineId?: string;
+    bunkerId?: string;
+    samohodniVagonId?: string;
+    brigadir?: string;
     indications_work_shift: {
         times_readings: string[];
         readings: number[];
@@ -85,3 +89,34 @@ export interface IWorkShiftMonthPlan {
         name_machine_readings: string;
     }
 }
+
+export interface IIdDateWorkShift {
+    combineId: string;
+    bunkerId: string;
+    samohodniVagonId: string,
+    workShiftId: string;
+    monthPlanId: string;
+}
+
+export interface IIndicationsMonth {
+    indications_month: {
+        times_readings: string[];
+        readings: number[];
+        plan: string;
+        name_month: string;
+        name_machine_readings: string;
+    }
+}
+
+export interface IIndicationsWorkShift {
+    work_shift: string;
+    time: string;
+    indications_work_shift: {
+        times_readings: string[];
+        readings: number[];
+        plan: string;
+        name_machine_readings: string;
+    };
+}
+
+export type IAllIndications = [ITechnicData, ITechnicData, ITechnicData, IIndicationsWorkShift, IIndicationsMonth];
