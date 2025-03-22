@@ -6,10 +6,9 @@
 .container__technics-form {
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 30px 15px 0 15px;
     gap: 15px;
     width: 450px;
-    margin-top: 30px;
     height: calc(100vh - 175px);
 }
 

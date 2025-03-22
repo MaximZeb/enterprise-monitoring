@@ -9,6 +9,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 import { mockIndictions } from './mock-real-time';
 import { NotificationService } from 'src/app/notification/notification.service';
+import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -30,20 +31,22 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private apiDataTechnicsService: ApiDataTechnicsService,
     private monitoringService: MonitoringService,
     private dialog: Dialog,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private progressSpinnerService: ProgressSpinnerService,
   ) {}
 
   public ngOnInit(): void {
     this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
-    this.runCurrentWorkShift();
+    this.buildChartCurrentWorkShift();
     this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
   }
 
-  public findTechincs(): void {
+  public buildChartsTechincsSelectedDate(): void {
     if (this.technicsForm.valid) {
+      this.progressSpinnerService.onProgressSpiner();
       this.currentWorkShift = !this.currentWorkShift;
       clearInterval(this.intervalId);
-      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe()
+      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe(() => setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000))
     }
   }
 
@@ -55,10 +58,15 @@ export class MineTechnincsHeadComponent implements OnInit  {
     });
   }
 
-  public runCurrentWorkShift() {
+  public buildChartCurrentWorkShift(): void {
+    if (this.currentWorkShift) {
+      return;
+    }
+
+    this.progressSpinnerService.onProgressSpiner();
     this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
     this.currentWorkShift = !this.currentWorkShift;
-
+    setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000);
     // this.showYellowNotification();
     // this.showRedNotification();
   }
