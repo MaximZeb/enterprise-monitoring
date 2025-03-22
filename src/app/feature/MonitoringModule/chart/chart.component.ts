@@ -14,7 +14,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public indicitionsData: number [] = [12, 19, 3, 5, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3] as number[];
   @Input() public indicitionsTimesData: string[] = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
   @Input() public labelChart: string  = 'Проходка, м';
-  @Input() public backgroundColor: string[]  = ['#07c184'];
+  @Input() public backgroundColor: string[]  = ['#386dbdbd'];
   
   private chart!: Chart;
 
@@ -34,7 +34,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
           data: this.indicitionsData, // мои значения
           borderWidth: 1,
           backgroundColor: this.backgroundColor, //цвет
-          borderColor: "#07c184"
+          ...(this.typeChart !== 'pie' ? { borderColor: "#386dbdbd" } : {})
         }]
       },
       options: {
