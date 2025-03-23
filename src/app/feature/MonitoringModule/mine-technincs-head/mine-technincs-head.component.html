@@ -38,9 +38,9 @@
         </div>
     </div>
     <ng-container *ngIf="allIndications | async as tecnicsData; else empty">
-        <div class="container-monitoring">
+        <div *ngIf="sectionData | async as brigadir" class="container-monitoring">
             <mat-card *ngIf="tecnicsData[3] as workShiftData" class="name-work-shift">
-                Дата {{ workShiftData.time | date:'dd.MM.yyyy' }}, смена 1, 08:00 - 16:00  
+                Дата {{ workShiftData.time | date:'dd.MM.yyyy' }}, 00:00 - 08:00, смена 1, Бригадир: {{ brigadir.combine_complexs[0].brigadir }}   
             </mat-card>
 
             <div class="container-technics__current-techinc">
@@ -122,12 +122,12 @@
                                     <mat-card-title>{{ month.indications_month.name_month }}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content class="dashodoard">
-                                    <div>
+                                    <div class="text__margin">
                                         <span class="text">
                                             План руды, т:
                                         </span>
                                         <span class="plan text">
-                                            {{ month.indications_month.plan }} Т
+                                            {{ month.indications_month.plan }} тонн
                                         </span>
                                     </div>
                                     <div class="card-content-chart-doughnut">
@@ -139,14 +139,49 @@
                                             [backgroundColor]="['#386dbd', '#e1e1e17a']"
                                         ></chart>
                                     </div>
-                                    <div class="predict text">
-                                        <span class="text">
-                                            Итого руды, т:
-                                        </span>
-                                        <span class="predict-up text">
-                                            17000 Т
-                                        </span>
-                                    </div>
+                                    <mat-card class="states text">
+                                        <div>
+                                            <span>
+                                                Итого руды, т:
+                                            </span>
+                                            <span class="predict-up text">
+                                                17000 тонн
+                                                <mat-icon style="height: 19px;" aria-hidden="false" fontIcon="arrow_upward"></mat-icon>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Превышение ПДК:
+                                             </span>
+                                             <span>
+                                                 0
+                                             </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Количество аварий:
+                                             </span>
+                                             <span>
+                                                 0
+                                             </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Количество поломок:
+                                             </span>
+                                             <span>
+                                                 0
+                                             </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Общее время простоя:
+                                             </span>
+                                             <span>
+                                                 136 минут
+                                             </span>
+                                        </div>
+                                    </mat-card>
                                 </mat-card-content>
                             </mat-card>
                         </ng-container>
@@ -156,12 +191,12 @@
                                     <mat-card-title>Смена {{ workShift.work_shift }}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content class="dashodoard">
-                                    <div>
+                                    <div class="text__margin">
                                         <span class="text">
                                             План руды, т:
                                         </span>
                                         <span class="plan text">
-                                            {{ workShift.indications_work_shift.plan }} Т
+                                            {{ workShift.indications_work_shift.plan }} тонн
                                         </span>
                                     </div>
                                     <div class="card-content-chart-doughnut">
@@ -173,14 +208,50 @@
                                             [backgroundColor]="['#386dbd', '#e1e1e17a']"
                                     ></chart>
                                     </div>
-                                    <div class="predict text">
-                                        <span class="text">
-                                            {{ currentWorkShift ? 'Итого руды, т:' : 'Прогноз руды, т:' }}
-                                        </span>
-                                        <span class="predict-down text">
-                                            {{ currentWorkShift ? 500 : predictFact?.fact }} Т
-                                        </span>
-                                    </div>
+                                    <mat-card class="states text">
+                                        <div>
+                                            <span>
+                                                {{ currentWorkShift ? 'Прогноз руды, т:' : 'Итого руды, т:' }}
+                                            </span>
+                                            <span class="predict-down text">
+                                                {{ currentWorkShift ? predictFact?.fact : 500  }} тонн
+                                                <mat-icon style="height: 19px;" *ngIf="workShift.indications_work_shift.plan > '' + predictFact?.fact" aria-hidden="false" fontIcon="arrow_downward"></mat-icon>
+                                                <mat-icon style="height: 19px;" *ngIf="workShift.indications_work_shift.plan < '' + predictFact?.fact" aria-hidden="false" fontIcon="arrow_upward"></mat-icon>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Превышение ПДК:
+                                             </span>
+                                             <span>
+                                                 0
+                                             </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Количество аварий:
+                                             </span>
+                                             <span>
+                                                 0
+                                             </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Количество поломок:
+                                             </span>
+                                             <span>
+                                                 0
+                                             </span>
+                                        </div>
+                                        <div>
+                                            <span>
+                                                Общее время простоя:
+                                             </span>
+                                             <span>
+                                                 30 минут
+                                             </span>
+                                        </div>
+                                    </mat-card>
                                 </mat-card-content>
                             </mat-card>
                         </ng-container>

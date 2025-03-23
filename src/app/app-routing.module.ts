@@ -11,7 +11,8 @@ const routes: Routes = [
     path: 'monitoring',
     loadChildren: () => import('./feature/MonitoringModule/monitoring/monitoring.module').then(m => m.MonitoringModule),
     canActivate: [AuthGuard]
-  }
+  },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' }
 ];
 
 @NgModule({

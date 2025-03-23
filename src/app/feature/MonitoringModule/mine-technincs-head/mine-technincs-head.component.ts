@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { Observable } from 'rxjs';
-import { IAllIndications, ITechnicData } from '../../API/api.interface';
+import { IAllIndications, ISection, ITechnicData } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
 import { mockIndictions } from './mock-real-time';
@@ -20,12 +20,13 @@ export class MineTechnincsHeadComponent implements OnInit  {
   public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
   public predictFact: null | { fact: number; } = null;
   public currentWorkShift: boolean = true;
-
-  private intervalId: any;
+  public sectionData: Observable<ISection | null> = this.monitoringService.getSectionData();
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
   });
+
+  private intervalId: any;
 
   constructor(
     private apiDataTechnicsService: ApiDataTechnicsService,
@@ -36,7 +37,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
   ) {}
 
   public ngOnInit(): void {
-    this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
+    // this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
     this.buildChartCurrentWorkShift();
     this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
   }
@@ -44,7 +45,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
   public buildChartsTechincsSelectedDate(): void {
     if (this.technicsForm.valid) {
       this.progressSpinnerService.onProgressSpiner();
-      this.currentWorkShift = !this.currentWorkShift;
+      this.currentWorkShift = false;
       clearInterval(this.intervalId);
       this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe(() => setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000))
     }
@@ -59,14 +60,16 @@ export class MineTechnincsHeadComponent implements OnInit  {
   }
 
   public buildChartCurrentWorkShift(): void {
-    if (this.currentWorkShift) {
-      return;
-    }
+    // сделать чтобы кнопка не вызывалась два раза подряд и более
+    // if (this.currentWorkShift) {
+    //   return;
+    // }
 
     this.progressSpinnerService.onProgressSpiner();
     this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
-    this.currentWorkShift = !this.currentWorkShift;
-    setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000);
+    this.currentWorkShift = true;
+    setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 2000);
+
     // this.showYellowNotification();
     // this.showRedNotification();
   }
