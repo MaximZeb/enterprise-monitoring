@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select'; // Import MatSelectM
 import { ChartComponent } from '../chart/chart.component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Настройка формата даты
 export const MY_DATE_FORMATS = {
@@ -55,7 +56,8 @@ export const MY_DATE_FORMATS = {
     MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
-    DialogModule
+    DialogModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },

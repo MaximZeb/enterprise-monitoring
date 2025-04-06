@@ -35,6 +35,30 @@
                 >
                 Вернуть текущую смену
             </button>
+            <mat-card>
+                <mat-card-content>
+                  <h5 class="example-h2">Режим разработчика</h5>
+              
+                  <section class="example-section">
+                    <mat-checkbox class="example-margin" [(ngModel)]="devMode">{{ devMode ? 'Выкл' : 'Вкл' }}</mat-checkbox>
+                  </section>
+                  <div class="container-bottons-dev" *ngIf="devMode">
+                    <button 
+                        mat-raised-button 
+                        (click)="showVibration()"
+                        >
+                        Поднять вибрацию БФ Ком.
+                    </button>
+                    <button 
+                        mat-raised-button 
+                        (click)="showPDK()"
+                        >
+                        Поднять ПДК
+                    </button>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+              
         </div>
     </div>
     <ng-container *ngIf="allIndications | async as tecnicsData; else empty">

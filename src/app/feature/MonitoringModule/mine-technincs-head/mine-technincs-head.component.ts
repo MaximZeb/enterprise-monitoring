@@ -21,6 +21,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
   public predictFact: null | { fact: number; } = null;
   public currentWorkShift: boolean = true;
   public sectionData: Observable<ISection | null> = this.monitoringService.getSectionData();
+  public devMode: boolean = false;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
@@ -33,7 +34,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
     private monitoringService: MonitoringService,
     private dialog: Dialog,
     private notificationService: NotificationService,
-    private progressSpinnerService: ProgressSpinnerService,
+    private progressSpinnerService: ProgressSpinnerService
   ) {}
 
   public ngOnInit(): void {
@@ -60,26 +61,22 @@ export class MineTechnincsHeadComponent implements OnInit  {
   }
 
   public buildChartCurrentWorkShift(): void {
-    // сделать чтобы кнопка не вызывалась два раза подряд и более
-    // if (this.currentWorkShift) {
-    //   return;
-    // }
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
 
     this.progressSpinnerService.onProgressSpiner();
     this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
     this.currentWorkShift = true;
     setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 2000);
-
-    // this.showYellowNotification();
-    // this.showRedNotification();
   }
 
-  public showYellowNotification(): void {
-    this.notificationService.yellow('Yellow alert!');
+  public showVibration(): void {
+    this.notificationService.yellow('Превышение вибраций на бермвой фризе');
   }
 
-  public showRedNotification(): void {
-    this.notificationService.red('Red error!');
+  public showPDK(): void {
+    this.notificationService.red('Превышения ПДК по взрывопасным газам');
   }
 }
 

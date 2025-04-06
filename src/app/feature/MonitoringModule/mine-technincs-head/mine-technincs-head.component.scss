@@ -134,3 +134,9 @@
     align-items: center;
     flex-direction: column;
 }
+
+.container-bottons-dev {
+    display: flex;
+    row-gap: 10px;
+    flex-direction: column;
+}

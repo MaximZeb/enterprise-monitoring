@@ -1335,7 +1335,7 @@ export let mockIndictions: IAllIndications = [
             58
           ],
           plan: "15000",
-          name_month: "Февраль",
+          name_month: "Июнь",
           name_machine_readings: "План на месяц руды, т"
         }
     }
