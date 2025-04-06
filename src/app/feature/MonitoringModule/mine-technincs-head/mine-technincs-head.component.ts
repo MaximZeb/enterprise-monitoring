@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { IAllIndications, ISection, ITechnicData } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
-import { mockIndictions } from './mock-real-time';
+import { mockIndictions, upPredelCombainPDK, upPredelCombainTemp } from './mock-real-time';
 import { NotificationService } from 'src/app/notification/notification.service';
 import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 
@@ -22,12 +22,14 @@ export class MineTechnincsHeadComponent implements OnInit  {
   public currentWorkShift: boolean = true;
   public sectionData: Observable<ISection | null> = this.monitoringService.getSectionData();
   public devMode: boolean = false;
+  public countPDK: number = 0;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
   });
 
   private intervalId: any;
+
 
   constructor(
     private apiDataTechnicsService: ApiDataTechnicsService,
@@ -72,10 +74,13 @@ export class MineTechnincsHeadComponent implements OnInit  {
   }
 
   public showVibration(): void {
-    this.notificationService.yellow('Превышение вибраций на бермвой фризе');
+    upPredelCombainTemp();
+    this.notificationService.yellow('Превышение температуры маслостанции');
   }
 
   public showPDK(): void {
+    this.countPDK +=1;
+    upPredelCombainPDK();
     this.notificationService.red('Превышения ПДК по взрывопасным газам');
   }
 }

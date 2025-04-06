@@ -1389,3 +1389,12 @@ setInterval(() => {
   wesBP();
   // console.log(mockIndictions[4].indications[0].machine_readings[0].readings);
 }, 100000)
+
+
+export function upPredelCombainTemp() {
+  mockIndictions[0].indications[0].machine_readings[6].readings.push(140);
+}
+
+export function upPredelCombainPDK() {
+  mockIndictions[0].indications[0].machine_readings[7].readings.push(140);
+}

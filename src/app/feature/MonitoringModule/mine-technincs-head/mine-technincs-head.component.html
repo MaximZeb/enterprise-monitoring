@@ -177,8 +177,8 @@
                                             <span>
                                                 Превышение ПДК:
                                              </span>
-                                             <span>
-                                                 0
+                                             <span [class.predict-down]="!!countPDK">
+                                                 {{ countPDK }}
                                              </span>
                                         </div>
                                         <div>
@@ -247,9 +247,9 @@
                                             <span>
                                                 Превышение ПДК:
                                              </span>
-                                             <span>
-                                                 0
-                                             </span>
+                                             <span [class.predict-down]="!!countPDK">
+                                                {{ countPDK }}
+                                            </span>
                                         </div>
                                         <div>
                                             <span>
