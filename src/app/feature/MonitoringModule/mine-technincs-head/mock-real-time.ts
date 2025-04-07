@@ -361,7 +361,7 @@ export let mockIndictions: IAllIndications = [
         name: "Самоходный вагон СВ-17",
         indications: [
           {
-            time: "174593111",
+            time: "1740258000000",
             work_shift: "1",
             machine_readings: [
               {
@@ -437,7 +437,7 @@ export let mockIndictions: IAllIndications = [
         name: "Бункер перегружатель БП-17",
         indications: [
           {
-            time: "174593111",
+            time: "1740258000000",
             work_shift: "1",
             machine_readings: [
               {
@@ -1335,7 +1335,7 @@ export let mockIndictions: IAllIndications = [
             58
           ],
           plan: "15000",
-          name_month: "Февраль",
+          name_month: "Июнь",
           name_machine_readings: "План на месяц руды, т"
         }
     }
@@ -1389,3 +1389,12 @@ setInterval(() => {
   wesBP();
   // console.log(mockIndictions[4].indications[0].machine_readings[0].readings);
 }, 100000)
+
+
+export function upPredelCombainTemp() {
+  mockIndictions[0].indications[0].machine_readings[6].readings.push(140);
+}
+
+export function upPredelCombainPDK() {
+  mockIndictions[0].indications[0].machine_readings[7].readings.push(140);
+}

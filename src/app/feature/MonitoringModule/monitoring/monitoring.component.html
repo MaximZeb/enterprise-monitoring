@@ -10,7 +10,7 @@
                   <div class="division">{{ mine.user.position }}</div>
               </div>
               <div class="logout">
-                <mat-icon aria-hidden="false" [routerLink]="'/auth'" [state]="{ replaceUrl: true }"  fontIcon="logout"></mat-icon>
+                <mat-icon aria-hidden="false" (click)="navigateAuth()" fontIcon="logout"></mat-icon>
               </div>
           </div>
       </div>

@@ -19,4 +19,8 @@ export class MonitoringComponent implements OnInit {
     this.monitoringService.setUserData(mine);
     this.router.navigate(['sections'], { relativeTo: this.activatedRoute, replaceUrl: true });
   }
+
+  public navigateAuth() {
+    this.router.navigate(['/auth'], { replaceUrl: true });
+  }
 }

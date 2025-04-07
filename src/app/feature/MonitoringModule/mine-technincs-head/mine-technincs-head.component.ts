@@ -4,11 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
 import { Observable } from 'rxjs';
-import { IAllIndications, ITechnicData } from '../../API/api.interface';
+import { IAllIndications, ISection, ITechnicData } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
-import { mockIndictions } from './mock-real-time';
+import { mockIndictions, upPredelCombainPDK, upPredelCombainTemp } from './mock-real-time';
 import { NotificationService } from 'src/app/notification/notification.service';
+import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 
 @Component({
   selector: 'app-mine-technincs-head',
@@ -19,31 +20,41 @@ export class MineTechnincsHeadComponent implements OnInit  {
   public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
   public predictFact: null | { fact: number; } = null;
   public currentWorkShift: boolean = true;
-
-  private intervalId: any;
+  public sectionData: Observable<ISection | null> = this.monitoringService.getSectionData();
+  public devMode: boolean = false;
+  public countPDK: number = 0;
   public technicsForm: FormGroup = new FormGroup({
       date: new FormControl('', Validators.required),
       workingShift: new FormControl('', Validators.required)
   });
 
+  private intervalId: any;
+
+
   constructor(
     private apiDataTechnicsService: ApiDataTechnicsService,
     private monitoringService: MonitoringService,
     private dialog: Dialog,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private progressSpinnerService: ProgressSpinnerService
   ) {}
 
   public ngOnInit(): void {
-    this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
-    this.runCurrentWorkShift();
-    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
+    // this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
+    this.buildChartCurrentWorkShift();
+    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v =>  {
+      if (v?.data) {
+        this.predictFact = v.data
+      }
+    })
   }
 
-  public findTechincs(): void {
+  public buildChartsTechincsSelectedDate(): void {
     if (this.technicsForm.valid) {
-      this.currentWorkShift = !this.currentWorkShift;
+      this.progressSpinnerService.onProgressSpiner();
+      this.currentWorkShift = false;
       clearInterval(this.intervalId);
-      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe()
+      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe(() => setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000))
     }
   }
 
@@ -55,20 +66,26 @@ export class MineTechnincsHeadComponent implements OnInit  {
     });
   }
 
-  public runCurrentWorkShift() {
+  public buildChartCurrentWorkShift(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+
+    this.progressSpinnerService.onProgressSpiner();
     this.intervalId = setInterval(() => this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions)), 2000);
-    this.currentWorkShift = !this.currentWorkShift;
-
-    // this.showYellowNotification();
-    // this.showRedNotification();
+    this.currentWorkShift = true;
+    setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 2000);
   }
 
-  public showYellowNotification(): void {
-    this.notificationService.yellow('Yellow alert!');
+  public showVibration(): void {
+    upPredelCombainTemp();
+    this.notificationService.yellow('Превышение температуры маслостанции');
   }
 
-  public showRedNotification(): void {
-    this.notificationService.red('Red error!');
+  public showPDK(): void {
+    this.countPDK +=1;
+    upPredelCombainPDK();
+    this.notificationService.red('Превышения ПДК по взрывопасным газам');
   }
 }
 

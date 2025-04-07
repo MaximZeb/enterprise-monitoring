@@ -6,10 +6,9 @@
 .container__technics-form {
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 30px 15px 0 15px;
     gap: 15px;
     width: 450px;
-    margin-top: 30px;
     height: calc(100vh - 175px);
 }
 
@@ -44,7 +43,7 @@
     display: flex;
     flex-direction: column;
     width: calc(50vw - 20px);
-    row-gap: 10px;
+    row-gap: 7px;
     height: calc(100vh - 236px);
     overflow-y: auto;
 }
@@ -70,7 +69,8 @@
     flex-direction: column;
     margin-top: 4px;
     margin-left: 1px;
-    margin-right: 1px;
+    margin-right: 2px;
+    margin-bottom: 2px;
     padding: 10px;
 }
 
@@ -104,18 +104,27 @@
     object-fit: cover; /* или contain, fill, scale-down, none */
 }
 
+.states {
+    margin-top: 50px;
+}
+
 .text {
     font-family: 'Roboto';
     font-size: 20px;
+}
+
+.text__margin {
     margin: 0 0 0 16px;
 }
 
 .predict-up {
-    background-color: #A8FBA4;
+    color: #31ad34;
+    font-weight: 500;
 }
 
 .predict-down {
-    background-color: #F69393;
+    color: #ea3323;
+    font-weight: 500;
 }
 
 .error {
@@ -123,5 +132,11 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.container-bottons-dev {
+    display: flex;
+    row-gap: 10px;
     flex-direction: column;
 }

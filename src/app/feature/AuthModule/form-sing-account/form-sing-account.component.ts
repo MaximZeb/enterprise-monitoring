@@ -2,7 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
 import { Router } from '@angular/router';
-import { IMine, IResourceData } from '../../API/api.interface';
+import { IResourceData } from '../../API/api.interface';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'form-sing-account',
@@ -10,7 +11,7 @@ import { IMine, IResourceData } from '../../API/api.interface';
   styleUrls: ['./form-sing-account.component.scss']
 })
 export class FormSingAccountComponent {
-  @Output() public isSingUp: EventEmitter<boolean> = new EventEmitter<boolean>(); 
+  @Output() public isSingUp: EventEmitter<boolean> = new EventEmitter<boolean>();
   public hide: boolean = true;
   
   public registrationForm: FormGroup = new FormGroup({
@@ -29,14 +30,18 @@ export class FormSingAccountComponent {
 
   public singUpAccount(): void {
     if (this.registrationForm.valid) {
+      this.apiRegistryEnteryAccountService.entryAccount(this.registrationForm.value).pipe(
+        catchError(() => {
+              return EMPTY;
+        })).subscribe((data: IResourceData | null) => {
+        if (data) {
+          const JSONMine: string = JSON.stringify(data);
 
-      this.apiRegistryEnteryAccountService.entryAccount(this.registrationForm.value).subscribe((data: IResourceData) => {
-        const JSONMine: string = JSON.stringify(data);
-
-        this.router.navigate(['/monitoring'], {
-          queryParams: { mineData: JSONMine },
-           replaceUrl: true
-        })
+          this.router.navigate(['/monitoring'], {
+            queryParams: { mineData: JSONMine },
+             replaceUrl: true
+          })
+        }
       });
     }
   }
