@@ -61,7 +61,7 @@ export class ApiDataTechnicsService {
           })
         );
       }),
-      catchError((err) => {
+      catchError(() => {
         this.progressSpinnerService.offProgressSpiner();
         this.monitoringService.setAllIndications(null);
         return throwError(() => []);

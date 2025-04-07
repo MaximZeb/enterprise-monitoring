@@ -361,7 +361,7 @@ export let mockIndictions: IAllIndications = [
         name: "Самоходный вагон СВ-17",
         indications: [
           {
-            time: "174593111",
+            time: "1740258000000",
             work_shift: "1",
             machine_readings: [
               {
@@ -437,7 +437,7 @@ export let mockIndictions: IAllIndications = [
         name: "Бункер перегружатель БП-17",
         indications: [
           {
-            time: "174593111",
+            time: "1740258000000",
             work_shift: "1",
             machine_readings: [
               {
