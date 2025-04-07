@@ -11,7 +11,7 @@ import { catchError, EMPTY } from 'rxjs';
   styleUrls: ['./form-sing-account.component.scss']
 })
 export class FormSingAccountComponent {
-  @Output() public isSingUp: EventEmitter<boolean> = new EventEmitter<boolean>(); 
+  @Output() public isSingUp: EventEmitter<boolean> = new EventEmitter<boolean>();
   public hide: boolean = true;
   
   public registrationForm: FormGroup = new FormGroup({

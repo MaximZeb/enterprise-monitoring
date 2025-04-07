@@ -237,11 +237,14 @@
                                             <span>
                                                 {{ currentWorkShift ? 'Прогноз руды, т:' : 'Итого руды, т:' }}
                                             </span>
-                                            <span class="predict-down text">
+                                            <span *ngIf="predictFact?.fact; else errorPredictFact" class="predict-down text">
                                                 {{ currentWorkShift ? predictFact?.fact : 500  }} тонн
                                                 <mat-icon style="height: 19px;" *ngIf="workShift.indications_work_shift.plan > '' + predictFact?.fact" aria-hidden="false" fontIcon="arrow_downward"></mat-icon>
                                                 <mat-icon style="height: 19px;" *ngIf="workShift.indications_work_shift.plan < '' + predictFact?.fact" aria-hidden="false" fontIcon="arrow_upward"></mat-icon>
                                             </span>
+                                            <ng-template #errorPredictFact>
+                                                <span>Нет данных</span>
+                                            </ng-template>
                                         </div>
                                         <div>
                                             <span>

@@ -42,7 +42,11 @@ export class MineTechnincsHeadComponent implements OnInit  {
   public ngOnInit(): void {
     // this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
     this.buildChartCurrentWorkShift();
-    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v => this.predictFact = v.data)
+    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v =>  {
+      if (v?.data) {
+        this.predictFact = v.data
+      }
+    })
   }
 
   public buildChartsTechincsSelectedDate(): void {

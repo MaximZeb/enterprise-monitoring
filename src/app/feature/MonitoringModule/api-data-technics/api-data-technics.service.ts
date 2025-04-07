@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../../API/api.service';
 import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
-import { catchError, filter, forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { IAllIndications, IIdDateWorkShift, IIndicationsMonth, IIndicationsWorkShift, IResponse, ISection, ITechnicData, IWorkShiftMonthPlan } from '../../API/api.interface';
-import { mockIndictions } from '../mine-technincs-head/mock-real-time';
+import { catchError, forkJoin, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
+import { IAllIndications, IIdDateWorkShift, IIndicationsMonth, IIndicationsWorkShift, IResponse, ITechnicData } from '../../API/api.interface';
+import { NotificationService } from 'src/app/notification/notification.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,19 @@ export class ApiDataTechnicsService {
     private apiService: ApiService,
     private progressSpinnerService: ProgressSpinnerService,
     private monitoringService: MonitoringService,
+    private notificationService: NotificationService
   ) { }
 
-  public getPredictFact(plan: number): Observable<IResponse<{ fact: number }>> {
+  public getPredictFact(plan: number): Observable<IResponse<{ fact: number }> | null> {
     const jsonUserInfo: string = JSON.stringify({ plan: plan });
 
-    return this.apiService.post<{ fact: number }>(`${this.apiService.rootUrl}/predict`, jsonUserInfo);
+    return this.apiService.post<{ fact: number }>(`${this.apiService.rootUrl}/predict`, jsonUserInfo).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.notificationService.red(error?.error?.data?.message ? error?.error?.data?.message : 'Ошибка запроса прогноза ру', 60);
+        
+        return of(null);
+      })
+    );
   }
 
   public getWorkShiftDate(workShiftDate: {date: Date, workingShift: string }): Observable<IAllIndications> {
