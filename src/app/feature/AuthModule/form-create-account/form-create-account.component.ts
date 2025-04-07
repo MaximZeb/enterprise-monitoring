@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiRegistryEnteryAccountService } from '../api-registry-entery-account-service/api-registry-entery-account.service';
 import { Router } from '@angular/router';
 import { IMine, IResourceData } from '../../API/api.interface';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'form-create-account',
@@ -32,13 +33,19 @@ export class FormCreateAccountComponent {
 
   public createAccount(): void {
     if (this.createForm.valid) {
-      this.apiRegistryEnteryAccountService.registryAccount(this.createForm.value).subscribe((data: IResourceData) => {
+      this.apiRegistryEnteryAccountService.registryAccount(this.createForm.value)
+      .pipe(catchError((error) => {
+        return EMPTY;
+      }))
+      .subscribe((data: IResourceData | null) => {
+        if (data !== null) {
               const JSONMine: string = JSON.stringify(data);
       
               this.router.navigate(['/monitoring'], {
                 queryParams: { mineData: JSONMine },
                 replaceUrl: true
-              })
+              });
+        }
       });
     }
   }
