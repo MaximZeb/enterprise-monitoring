@@ -7,7 +7,7 @@ WORKDIR /app
 # Копируем package.json и package-lock.json (или yarn.lock)
 COPY package*.json ./
 
-ENV NODE_OPTIONS="--max_old_space_size=2048"
+ENV NODE_OPTIONS="--max_old_space_size=4096"
 
 # Устанавливаем зависимости
 RUN npm install --no-optional
