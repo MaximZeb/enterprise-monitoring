@@ -32,7 +32,7 @@ export class ApiRegistryEnteryAccountService {
       })
     );
   }
-
+  // TODO надо поправить обработать ошибку
   public entryAccount(data: ILoginEntery): Observable<IResourceData | null> {
     const jsonUserInfo: string = JSON.stringify(data);
     this.progressSpinnerService.onProgressSpiner();

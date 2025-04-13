@@ -64,6 +64,7 @@
     <ng-container *ngIf="allIndications | async as tecnicsData; else empty">
         <div *ngIf="sectionData | async as brigadir" class="container-monitoring">
             <mat-card *ngIf="tecnicsData[3] as workShiftData" class="name-work-shift">
+                <!-- TODO надо поправить смена -->
                 Дата {{ workShiftData.time | date:'dd.MM.yyyy' }}, 00:00 - 08:00, смена 1, Бригадир: {{ brigadir.combine_complexs[0].brigadir }}   
             </mat-card>
 
@@ -234,6 +235,7 @@
                                     </div>
                                     <mat-card class="states text">
                                         <div>
+                                            <!-- TODO надо поправить прогноз что если выше то зеленый цвет -->
                                             <span>
                                                 {{ currentWorkShift ? 'Прогноз руды, т:' : 'Итого руды, т:' }}
                                             </span>

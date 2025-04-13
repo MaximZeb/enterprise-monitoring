@@ -48,7 +48,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
       }
     })
   }
-
+  // TODO надо поправить подумать чтобы отключать интеревал если разлогинились наверерное надо делать отписку
   public buildChartsTechincsSelectedDate(): void {
     if (this.technicsForm.valid) {
       this.progressSpinnerService.onProgressSpiner();
