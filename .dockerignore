@@ -1,0 +1,12 @@
+node_modules
+src
+.git
+.gitignore
+Dockerfile
+README.md
+angular.json
+package-lock.json
+package.json
+tsconfig.json
+tslint.json
+e2e
