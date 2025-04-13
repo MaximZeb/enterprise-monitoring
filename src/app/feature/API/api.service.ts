@@ -7,7 +7,7 @@ import { IResponse } from './api.interface';
   providedIn: 'root'
 })
 export class ApiService {
-  public readonly rootUrl: string = 'http://localhost:3000';
+  public readonly rootUrl: string = 'http://139.28.223.9:3000';
   
   constructor(private http: HttpClient) { }
 
