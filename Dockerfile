@@ -16,7 +16,7 @@ RUN npm install --no-optional
 COPY . .
 
 # Собираем Angular-приложение для production
-RUN npm run build --prod
+RUN npm run build
 
 # Используем Nginx для обслуживания статических файлов
 FROM nginx:alpine
