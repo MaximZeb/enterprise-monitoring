@@ -7,8 +7,10 @@ WORKDIR /app
 # Копируем package.json и package-lock.json (или yarn.lock)
 COPY package*.json ./
 
+ENV NODE_OPTIONS="--max_old_space_size=2048"
+
 # Устанавливаем зависимости
-RUN npm install
+RUN npm install --no-optional
 
 # Копируем исходный код Angular-приложения
 COPY . .
