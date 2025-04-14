@@ -1,13 +1,13 @@
 import * as _ from 'lodash';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiDataTechnicsService } from '../api-data-technics/api-data-technics.service';
 import { MonitoringService } from '../monitoring/monitoring.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { IAllIndications, ISection, ITechnicData } from '../../API/api.interface';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogChartComponent } from '../dialog-chart/dialog-chart.component';
-import { mockIndictions, upPredelCombainPDK, upPredelCombainTemp } from './mock-real-time';
+import { mockIndictions, startMock, stopMock, upPredelCombainPDK, upPredelCombainTemp } from './mock-real-time';
 import { NotificationService } from 'src/app/notification/notification.service';
 import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner.service';
 
@@ -16,7 +16,7 @@ import { ProgressSpinnerService } from 'src/app/progress-spiner/progress-spinner
   templateUrl: './mine-technincs-head.component.html',
   styleUrls: ['./mine-technincs-head.component.scss']
 })
-export class MineTechnincsHeadComponent implements OnInit  {
+export class MineTechnincsHeadComponent implements OnInit, OnDestroy  {
   public allIndications: Observable<IAllIndications | null> = this.monitoringService.getAllIndications();
   public predictFact: null | { fact: number; } = null;
   public currentWorkShift: boolean = true;
@@ -29,7 +29,7 @@ export class MineTechnincsHeadComponent implements OnInit  {
   });
 
   private intervalId: any;
-
+  private notifier: Subject<any> = new Subject(); 
 
   constructor(
     private apiDataTechnicsService: ApiDataTechnicsService,
@@ -40,21 +40,32 @@ export class MineTechnincsHeadComponent implements OnInit  {
   ) {}
 
   public ngOnInit(): void {
-    // this.monitoringService.setAllIndications(_.cloneDeep(mockIndictions));
+    startMock();
     this.buildChartCurrentWorkShift();
-    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan).subscribe(v =>  {
-      if (v?.data) {
-        this.predictFact = v.data
-      }
-    })
+    this.apiDataTechnicsService.getPredictFact(+mockIndictions[3].indications_work_shift.plan)
+      .pipe(takeUntil(this.notifier))
+      .subscribe(v =>  {
+        if (v?.data) {
+          this.predictFact = v.data
+        }
+      })
   }
-  // TODO надо поправить подумать чтобы отключать интеревал если разлогинились наверерное надо делать отписку
+
+  public ngOnDestroy(): void {
+    stopMock();
+    clearInterval(this.intervalId);
+    this.notifier.next('');
+    this.notifier.complete();
+  }
+
   public buildChartsTechincsSelectedDate(): void {
     if (this.technicsForm.valid) {
       this.progressSpinnerService.onProgressSpiner();
       this.currentWorkShift = false;
       clearInterval(this.intervalId);
-      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value).subscribe(() => setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000))
+      this.apiDataTechnicsService.getWorkShiftDate(this.technicsForm.value)
+        .pipe(takeUntil(this.notifier))
+        .subscribe(() => setTimeout(() => this.progressSpinnerService.offProgressSpiner(), 1000))
     }
   }
 

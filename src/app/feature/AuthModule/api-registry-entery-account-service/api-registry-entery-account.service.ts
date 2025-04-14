@@ -26,13 +26,13 @@ export class ApiRegistryEnteryAccountService {
       }),
       catchError((error: HttpErrorResponse) => {
         this.progressSpinnerService.offProgressSpiner();
-        this.notificationService.red(error?.error?.data?.message ? error?.error?.data?.message : 'Ошибка запроса', 60);
+        this.notificationService.red(error?.error?.data?.message ? error?.error?.data?.message : 'Ошибка сервера', 60);
         
         return of(null);
       })
     );
   }
-  // TODO надо поправить обработать ошибку
+
   public entryAccount(data: ILoginEntery): Observable<IResourceData | null> {
     const jsonUserInfo: string = JSON.stringify(data);
     this.progressSpinnerService.onProgressSpiner();
@@ -40,7 +40,13 @@ export class ApiRegistryEnteryAccountService {
     return this.apiService.post<IUser>(`${this.apiService.rootUrl}/entry`, jsonUserInfo).pipe(
       switchMap((responseUser: IResponse<IUser>) => {
         return this.getMine(responseUser);
-      })
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.progressSpinnerService.offProgressSpiner();
+        this.notificationService.red(error?.error?.data?.message ? error?.error?.data?.message : 'Ошибка сервера', 60);
+
+        return of(null);
+      }),
     )
   }
 
@@ -52,7 +58,7 @@ export class ApiRegistryEnteryAccountService {
       tap(() => this.progressSpinnerService.offProgressSpiner()),
       catchError((error: HttpErrorResponse) => {
         this.progressSpinnerService.offProgressSpiner();
-        this.notificationService.red(error?.error?.data?.message ? error?.error?.data?.message : 'Ошибка запроса', 60);
+        this.notificationService.red(error?.error?.data?.message ? error?.error?.data?.message : 'Ошибка сервера', 60);
 
         return of(null);
       })

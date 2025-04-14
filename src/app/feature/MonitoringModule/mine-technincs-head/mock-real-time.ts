@@ -1369,27 +1369,37 @@ function planWorkShift() {
 function wesBP() {
   mockIndictions[2].indications[0].machine_readings[0].readings.push(Math.round((Math.random() * 17) * 100) / 100)
 }
+let resetMock: IAllIndications = mockIndictions;
+let setIntervalOne: any;
+let setIntervalTwo: any;
 
-setInterval(() => {
-  counterUral(5, 0);
-  counterUral(24, 1);
-  counterUral(24, 2, 0.03);
-  counterUral(24, 3, 0.01);
-  counterUral(5, 0, 0.1, true, 1);
-  // wesBP();
-  // console.log(mockIndictions[0].indications[0].machine_readings[1].readings);
-  // console.log(mockIndictions[0].indications[0].machine_readings[2].readings);
-  // console.log(mockIndictions[1].indications[0].machine_readings[0].readings);
-  // console.log(mockIndictions[2].indications[0].machine_readings[0].readings);
-}, 2000)
+export function startMock() {
+  setIntervalOne = setInterval(() => {
+    counterUral(5, 0);
+    counterUral(24, 1);
+    counterUral(24, 2, 0.03);
+    counterUral(24, 3, 0.01);
+    counterUral(5, 0, 0.1, true, 1);
+    // wesBP();
+    // console.log(mockIndictions[0].indications[0].machine_readings[1].readings);
+    // console.log(mockIndictions[0].indications[0].machine_readings[2].readings);
+    // console.log(mockIndictions[1].indications[0].machine_readings[0].readings);
+    // console.log(mockIndictions[2].indications[0].machine_readings[0].readings);
+  }, 2000)
+  
+  setIntervalTwo = setInterval(() => {
+    planWorkShift();
+    counterUral(5, 4, 1, false);
+    wesBP();
+    // console.log(mockIndictions[4].indications[0].machine_readings[0].readings);
+  }, 100000)
+}
 
-setInterval(() => {
-  planWorkShift();
-  counterUral(5, 4, 1, false);
-  wesBP();
-  // console.log(mockIndictions[4].indications[0].machine_readings[0].readings);
-}, 100000)
-
+export function stopMock() {
+  clearInterval(setIntervalOne);
+  clearInterval(setIntervalTwo);
+  mockIndictions = resetMock;
+}
 
 export function upPredelCombainTemp() {
   mockIndictions[0].indications[0].machine_readings[6].readings.push(140);
