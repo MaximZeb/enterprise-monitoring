@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IResourceData } from '../../API/api.interface';
 import { MonitoringService } from './monitoring.service';
+import { stopMock } from '../mine-technincs-head/mock-real-time';
 
 @Component({
   selector: 'app-monitoring',
@@ -20,7 +21,8 @@ export class MonitoringComponent implements OnInit {
     this.router.navigate(['sections'], { relativeTo: this.activatedRoute, replaceUrl: true });
   }
 
-  public navigateAuth() {
+  public navigateAuth(): void {
+    stopMock();
     this.router.navigate(['/auth'], { replaceUrl: true });
   }
 }
