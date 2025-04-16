@@ -7,4 +7,4 @@
 
 для докера 
 1. docker build -t frontend .
-2. docker run -d -p 80:80 frontend
+2. docker run -d --restart always -p 80:80 frontend
