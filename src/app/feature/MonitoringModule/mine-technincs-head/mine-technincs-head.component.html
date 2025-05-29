@@ -47,7 +47,7 @@
                         mat-raised-button 
                         (click)="showVibration()"
                         >
-                        Поднять вибрацию БФ Ком.
+                        Поднять темп. маслостанции
                     </button>
                     <button 
                         mat-raised-button 
@@ -65,7 +65,7 @@
         <div *ngIf="sectionData | async as brigadir" class="container-monitoring">
             <mat-card *ngIf="tecnicsData[3] as workShiftData" class="name-work-shift">
                 <!-- TODO надо поправить смена -->
-                Дата {{ workShiftData.time | date:'dd.MM.yyyy' }}, 00:00 - 08:00, смена 1, Бригадир: {{ brigadir.combine_complexs[0].brigadir }}   
+                Дата {{ workShiftData.time | date:'dd.MM.yyyy' }}, 08:00 - 16:00, смена 1, Бригадир: {{ brigadir.combine_complexs[0].brigadir }}   
             </mat-card>
 
             <div class="container-technics__current-techinc">
